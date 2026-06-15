@@ -3,14 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>H2Jau-Energi | Global Clean Energy Decision Intelligence</title>
-  <meta name="description" content="H2Jau-Energi is a global clean-energy decision platform for renewable energy, battery storage, green hydrogen, fuel-cell backup and surplus hydrogen offtake." />
+
+  <meta
+    name="description"
+    content="H2Jau-Energi is a global clean-energy decision platform for renewable energy, battery storage, green hydrogen, fuel-cell backup and surplus hydrogen offtake."
+  />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
 
   <style>
     :root {
@@ -891,8 +903,8 @@
     }
 
     #globalHydrogenMap {
-      height: 620px;
-      min-height: 620px;
+      height: 650px;
+      min-height: 650px;
       border-radius: 28px;
       overflow: hidden;
       border: 1px solid var(--line);
@@ -973,6 +985,10 @@
       background: linear-gradient(135deg, var(--green), #b7ffe9);
       color: #031713;
       border-color: transparent;
+    }
+
+    .leaflet-container {
+      font-family: Inter, system-ui, sans-serif;
     }
 
     .leaflet-popup-content-wrapper,
@@ -1365,8 +1381,8 @@
       }
 
       #globalHydrogenMap {
-        height: 520px;
-        min-height: 520px;
+        height: 560px;
+        min-height: 560px;
       }
 
       .hero-product {
@@ -1460,8 +1476,8 @@
       }
 
       #globalHydrogenMap {
-        height: 470px;
-        min-height: 470px;
+        height: 500px;
+        min-height: 500px;
       }
 
       .cta {
@@ -1718,10 +1734,10 @@
             A digital decision layer for renewable power, storage and hydrogen resilience.
           </h2>
           <p
-            data-en="H2Jau-Energi combines software-based analysis with professional consulting. The tool processes site data, load profiles, generation profiles, price assumptions, storage options, hydrogen pathways and regulatory context."
-            data-de="H2Jau-Energi kombiniert softwarebasierte Analyse mit professioneller Beratung. Das Tool verarbeitet Standortdaten, Lastprofile, Erzeugungsprofile, Preisannahmen, Speicheroptionen, Wasserstoffpfade und regulatorischen Kontext."
+            data-en="H2Jau-Energi combines software-based analysis with professional consulting. The tool processes site data, load profiles, generation profiles, storage options, hydrogen pathways and regulatory context."
+            data-de="H2Jau-Energi kombiniert softwarebasierte Analyse mit professioneller Beratung. Das Tool verarbeitet Standortdaten, Lastprofile, Erzeugungsprofile, Speicheroptionen, Wasserstoffpfade und regulatorischen Kontext."
           >
-            H2Jau-Energi combines software-based analysis with professional consulting. The tool processes site data, load profiles, generation profiles, price assumptions, storage options, hydrogen pathways and regulatory context.
+            H2Jau-Energi combines software-based analysis with professional consulting. The tool processes site data, load profiles, generation profiles, storage options, hydrogen pathways and regulatory context.
           </p>
 
           <div class="pill-list">
@@ -1988,11 +2004,19 @@
           </p>
 
           <div class="map-control-row" style="justify-content:center">
-            <button class="map-chip active" data-filter="all" data-en="All markets" data-de="Alle Märkte">All markets</button>
+            <button class="map-chip active" data-map-action="world" data-en="World View" data-de="Weltansicht">World View</button>
+            <button class="map-chip" data-filter="all" data-en="All markets" data-de="Alle Märkte">All markets</button>
             <button class="map-chip" data-filter="europe" data-en="Europe" data-de="Europa">Europe</button>
             <button class="map-chip" data-filter="asia" data-en="Asia" data-de="Asien">Asia</button>
             <button class="map-chip" data-filter="scaling" data-en="Scaling" data-de="Skalierung">Scaling</button>
             <button class="map-chip" data-filter="emerging" data-en="Emerging" data-de="Aufbauphase">Emerging</button>
+            <button class="map-chip" data-goto="germany">Germany</button>
+            <button class="map-chip" data-goto="malaysia">Malaysia</button>
+            <button class="map-chip" data-goto="japan">Japan</button>
+            <button class="map-chip" data-goto="singapore">Singapore</button>
+            <button class="map-chip" data-goto="south-korea">Korea</button>
+            <button class="map-chip" data-goto="indonesia">Indonesia</button>
+            <button class="map-chip" data-goto="thailand">Thailand</button>
             <button class="map-chip" id="locateMe" data-en="Use my location" data-de="Mein Standort">Use my location</button>
           </div>
         </div>
@@ -2213,8 +2237,8 @@
           <h2 data-en="Interactive site potential quick check." data-de="Interaktiver Standort-Quick-Check.">
             Interactive site potential quick check.
           </h2>
-          <p data-en="This simplified calculator estimates PV generation, avoided electricity cost, CO2 savings and potential green hydrogen output. It is a demo, not a final engineering design." data-de="Dieser vereinfachte Rechner schätzt PV-Erzeugung, vermiedene Stromkosten, CO2-Einsparung und potenzielle grüne Wasserstoffmenge. Er ist eine Demo und kein finales Engineering-Design.">
-            This simplified calculator estimates PV generation, avoided electricity cost, CO2 savings and potential green hydrogen output. It is a demo, not a final engineering design.
+          <p data-en="This simplified calculator estimates PV generation, CO2 savings and potential green hydrogen output. It is a demo, not a final engineering design." data-de="Dieser vereinfachte Rechner schätzt PV-Erzeugung, CO2-Einsparung und potenzielle grüne Wasserstoffmenge. Er ist eine Demo und kein finales Engineering-Design.">
+            This simplified calculator estimates PV generation, CO2 savings and potential green hydrogen output. It is a demo, not a final engineering design.
           </p>
         </div>
 
@@ -2230,11 +2254,6 @@
               <label>
                 <span data-en="Annual electricity demand in MWh" data-de="Jährlicher Strombedarf in MWh">Annual electricity demand in MWh</span>
                 <input id="demand" type="number" value="3000" min="0" />
-              </label>
-
-              <label>
-                <span data-en="Avoided grid electricity price in €/kWh" data-de="Vermiedener Netzstrompreis in €/kWh">Avoided grid electricity price in €/kWh</span>
-                <input id="price" type="number" value="0.22" min="0" step="0.01" />
               </label>
 
               <label>
@@ -2265,7 +2284,6 @@
             <div class="result-item"><span data-en="Approx. annual PV generation" data-de="Ca. jährliche PV-Erzeugung">Approx. annual PV generation</span><b id="pvGen">0 MWh/year</b></div>
             <div class="result-item"><span data-en="Estimated useful self-consumed energy" data-de="Geschätzter nutzbarer Eigenverbrauch">Estimated useful self-consumed energy</span><b id="selfUse">0 MWh/year</b></div>
             <div class="result-item"><span data-en="Estimated renewable surplus" data-de="Geschätzter erneuerbarer Überschuss">Estimated renewable surplus</span><b id="surplus">0 MWh/year</b></div>
-            <div class="result-item"><span data-en="Indicative self-consumption value" data-de="Indikativer Eigenverbrauchswert">Indicative self-consumption value</span><b id="value">€0/year</b></div>
             <div class="result-item"><span data-en="Estimated CO2 savings from avoided grid electricity" data-de="Geschätzte CO2-Einsparung durch vermiedenen Netzstrom">Estimated CO2 savings from avoided grid electricity</span><b id="co2Saved">0 t CO2/year</b></div>
             <div class="result-item"><span data-en="Theoretical hydrogen if all PV electricity is used" data-de="Theoretischer Wasserstoff, wenn gesamte PV-Erzeugung genutzt wird">Theoretical hydrogen if all PV electricity is used</span><b id="h2All">0 kg H2/year</b></div>
             <div class="result-item"><span data-en="Potential hydrogen from estimated surplus electricity" data-de="Potenzieller Wasserstoff aus geschätztem Überschussstrom">Potential hydrogen from estimated surplus electricity</span><b id="h2Surplus">0 kg H2/year</b></div>
@@ -2274,8 +2292,8 @@
             <div class="formula-box">
               <p data-en="Transparent formula assumptions:" data-de="Transparente Formelannahmen:">Transparent formula assumptions:</p>
               <code id="formulaText">CO2 saved = useful renewable kWh × grid CO2 factor. Hydrogen kg = renewable kWh ÷ electrolyser kWh/kg H2.</code>
-              <p class="source-note" data-en="Default CO2 factor uses 0.344 kg CO2/kWh as an editable grid assumption. Default hydrogen conversion uses 52 kWh/kg H2 as an editable electrolyser assumption." data-de="Standard-CO2-Faktor: 0,344 kg CO2/kWh als editierbare Netzannahme. Standard-Wasserstoffumrechnung: 52 kWh/kg H2 als editierbare Elektrolyseannahme.">
-                Default CO2 factor uses 0.344 kg CO2/kWh as an editable grid assumption. Default hydrogen conversion uses 52 kWh/kg H2 as an editable electrolyser assumption.
+              <p class="source-note" data-en="The calculator no longer shows annual € value, because this website focuses on technical and hydrogen potential first." data-de="Der Rechner zeigt keinen jährlichen €-Wert mehr, weil diese Website zuerst technisches Potenzial und Wasserstoffpotenzial zeigt.">
+                The calculator no longer shows annual € value, because this website focuses on technical and hydrogen potential first.
               </p>
             </div>
           </div>
@@ -2391,10 +2409,10 @@
           </h2>
 
           <p
-            data-en="Upload your load profile, site area and energy cost assumptions. H2Jau-Energi turns them into an investment-ready clean-energy pathway."
-            data-de="Laden Sie Ihr Lastprofil, Ihre Standortfläche und Energiekostenannahmen hoch. H2Jau-Energi verwandelt sie in einen investitionsreifen Clean-Energy-Pfad."
+            data-en="Upload your load profile, site area and energy assumptions. H2Jau-Energi turns them into an investment-ready clean-energy pathway."
+            data-de="Laden Sie Ihr Lastprofil, Ihre Standortfläche und Energieannahmen hoch. H2Jau-Energi verwandelt sie in einen investitionsreifen Clean-Energy-Pfad."
           >
-            Upload your load profile, site area and energy cost assumptions. H2Jau-Energi turns them into an investment-ready clean-energy pathway.
+            Upload your load profile, site area and energy assumptions. H2Jau-Energi turns them into an investment-ready clean-energy pathway.
           </p>
 
           <div class="hero-actions" style="justify-content:center">
@@ -2704,11 +2722,13 @@
 
     function levelName(value, type = "normal") {
       const labels = languageLabels[currentLanguage];
+
       if (type === "battery") {
         if (value === 1) return labels.small;
         if (value === 2) return labels.medium;
         return labels.large;
       }
+
       if (value === 1) return labels.low;
       if (value === 2) return labels.medium;
       return labels.high;
@@ -2726,6 +2746,7 @@
       document.getElementById("solarValue").textContent = levelName(solar);
       document.getElementById("demandValue").textContent = levelName(demand);
       document.getElementById("batteryValue").textContent = levelName(battery, "battery");
+
       document.getElementById("h2PriorityValue").textContent =
         h2Priority === 1
           ? languageLabels[currentLanguage].backupFirst
@@ -2739,9 +2760,11 @@
         primary = currentLanguage === "de"
           ? "PV direkt nutzen. Batterie und H2 bleiben hauptsächlich Reserve."
           : "Use PV directly. Battery and H2 remain mainly as reserve.";
+
         hydrogen = currentLanguage === "de"
           ? "Keine starke H2-Produktion, da wenig Überschuss vorhanden ist."
           : "Limited H2 production because there is little surplus.";
+
         business = currentLanguage === "de"
           ? "Fokus: Eigenverbrauch, Netzkostenreduktion und Backup-Bewertung."
           : "Focus: self-consumption, grid-cost reduction and backup evaluation.";
@@ -2749,9 +2772,11 @@
         primary = currentLanguage === "de"
           ? "PV direkt nutzen, Batterie laden und kurzfristige Schwankungen abdecken."
           : "Use PV directly, charge battery and cover short-term fluctuations.";
+
         hydrogen = currentLanguage === "de"
           ? "Verbleibenden Überschuss in H2 für Brennstoffzellen-Backup umwandeln."
           : "Convert remaining surplus into H2 for fuel-cell backup.";
+
         business = currentLanguage === "de"
           ? "Guter Case für Batterie + H2-Backup + mögliche Überschussabnahme."
           : "Good case for battery + H2 backup + optional surplus offtake.";
@@ -2759,6 +2784,7 @@
         primary = currentLanguage === "de"
           ? "PV direkt nutzen. Batterie ist begrenzt, daher Überschuss früh prüfen."
           : "Use PV directly. Battery is limited, so surplus needs early assessment.";
+
         hydrogen = currentLanguage === "de"
           ? h2Priority === 1
             ? "H2 zuerst für Standort-Backup speichern."
@@ -2766,6 +2792,7 @@
           : h2Priority === 1
             ? "Store H2 first for on-site backup."
             : "More H2 can be evaluated for potential offtakers.";
+
         business = currentLanguage === "de"
           ? "H2Jau-Energi prüft, ob größere Batterie, größerer Tank oder Offtaker-Pfad sinnvoll ist."
           : "H2Jau-Energi checks whether larger battery, larger tank or offtaker route makes sense.";
@@ -2784,6 +2811,7 @@
       document.getElementById("heroBattery").textContent = `${batteryStatus}%`;
       document.getElementById("heroTank").textContent = `${tankLevel}%`;
       document.getElementById("heroCo2").textContent = `${co2.toLocaleString()} t`;
+
       document.getElementById("dashboardRecommendation").textContent =
         currentLanguage === "de"
           ? "PV direkt nutzen, Batterie laden, restlichen Überschuss in H2 für Backup umwandeln."
@@ -2805,7 +2833,6 @@
 
       const area = Number(document.getElementById("area").value || 0);
       const demand = Number(document.getElementById("demand").value || 0);
-      const price = Number(document.getElementById("price").value || 0);
       const specificYield = Number(document.getElementById("yield").value || 0);
       const co2Factor = Number(document.getElementById("co2factor").value || 0);
       const h2Energy = Number(document.getElementById("h2energy").value || 52);
@@ -2814,7 +2841,6 @@
       const pvGenerationMwh = pvCapacityKwp * specificYield / 1000;
       const usefulMwh = Math.min(pvGenerationMwh * 0.7, demand);
       const surplusMwh = Math.max(pvGenerationMwh - usefulMwh, 0);
-      const annualValue = usefulMwh * 1000 * price;
       const co2SavedTonnes = usefulMwh * co2Factor;
       const h2AllKg = h2Energy > 0 ? pvGenerationMwh * 1000 / h2Energy : 0;
       const h2SurplusKg = h2Energy > 0 ? surplusMwh * 1000 / h2Energy : 0;
@@ -2823,12 +2849,12 @@
       document.getElementById("pvGen").textContent = `${formatNumber(pvGenerationMwh)} MWh/year`;
       document.getElementById("selfUse").textContent = `${formatNumber(usefulMwh)} MWh/year`;
       document.getElementById("surplus").textContent = `${formatNumber(surplusMwh)} MWh/year`;
-      document.getElementById("value").textContent = `€${formatNumber(annualValue)}/year`;
       document.getElementById("co2Saved").textContent = `${formatNumber(co2SavedTonnes)} t CO2/year`;
       document.getElementById("h2All").textContent = `${formatNumber(h2AllKg)} kg H2/year`;
       document.getElementById("h2Surplus").textContent = `${formatNumber(h2SurplusKg)} kg H2/year`;
 
       const next = document.getElementById("nextStep");
+
       if (surplusMwh > demand * 0.25) {
         next.textContent = currentLanguage === "de"
           ? "Batterie + H2-Backup + Überschussabnahme detailliert prüfen"
@@ -2844,9 +2870,9 @@
       }
     }
 
-    ["area", "demand", "price", "yield", "co2factor", "h2energy"].forEach(id =>
-      document.getElementById(id).addEventListener("input", calculatePotential)
-    );
+    ["area", "demand", "yield", "co2factor", "h2energy"].forEach(id => {
+      document.getElementById(id).addEventListener("input", calculatePotential);
+    });
 
     function getMarketColor(market) {
       if (market.score >= 5) return "#24f2b6";
@@ -2857,12 +2883,15 @@
 
     function getMarketByCountryName(name) {
       const normalised = name.toLowerCase();
+
       return hydrogenMarkets.find(market => {
         const country = market.country.toLowerCase();
+
         return (
           normalised === country ||
           (normalised === "republic of korea" && market.id === "south-korea") ||
-          (normalised === "korea, republic of" && market.id === "south-korea")
+          (normalised === "korea, republic of" && market.id === "south-korea") ||
+          (normalised === "netherlands" && market.id === "netherlands")
         );
       });
     }
@@ -2942,8 +2971,63 @@
           direction: "top"
         });
 
-        globalHydrogenMarkers.push(marker);
+        globalHydrogenMarkers.push({
+          id: market.id,
+          marker
+        });
       });
+    }
+
+    function showWorldView() {
+      if (!globalHydrogenMap) return;
+
+      activeMapFilter = "all";
+      addHydrogenMarkers();
+
+      globalHydrogenMap.invalidateSize();
+
+      const bounds = L.latLngBounds([
+        [53.5, 3.5],
+        [38.5, -9.0],
+        [36.2, 138.3],
+        [35.9, 127.8],
+        [15.8, 100.9],
+        [4.2, 101.9],
+        [1.35, 103.8],
+        [-6.2, 106.8],
+        [-2.5, 118.0]
+      ]);
+
+      globalHydrogenMap.fitBounds(bounds, {
+        padding: [35, 35],
+        maxZoom: 4
+      });
+
+      const defaultMarket = hydrogenMarkets.find(market => market.id === "malaysia");
+      if (defaultMarket) updateMapSidePanel(defaultMarket);
+    }
+
+    function flyToMarket(id) {
+      if (!globalHydrogenMap) return;
+
+      const market = hydrogenMarkets.find(item => item.id === id);
+      if (!market) return;
+
+      activeMapFilter = "all";
+      addHydrogenMarkers();
+
+      globalHydrogenMap.invalidateSize();
+
+      globalHydrogenMap.setView([market.lat, market.lng], market.region === "asia" ? 5 : 5, {
+        animate: true
+      });
+
+      updateMapSidePanel(market);
+
+      const markerEntry = globalHydrogenMarkers.find(item => item.id === id);
+      if (markerEntry) {
+        markerEntry.marker.openPopup();
+      }
     }
 
     function initGlobalHydrogenMap() {
@@ -2952,9 +3036,11 @@
 
       globalHydrogenMap = L.map("globalHydrogenMap", {
         scrollWheelZoom: true,
+        touchZoom: true,
+        doubleClickZoom: true,
         tap: true,
         worldCopyJump: true
-      }).setView([25, 75], 3);
+      }).setView([20, 90], 3);
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 18,
@@ -2963,15 +3049,13 @@
 
       addHydrogenMarkers();
 
-      const bounds = L.latLngBounds(hydrogenMarkets.map(market => [market.lat, market.lng]));
-      globalHydrogenMap.fitBounds(bounds, { padding: [30, 30] });
-
-      fetch("https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json")
+      fetch("https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.json")
         .then(response => response.json())
         .then(data => {
           globalHydrogenLayer = L.geoJSON(data, {
             style: feature => {
               const market = getMarketByCountryName(feature.properties.name);
+
               if (!market) {
                 return {
                   color: "rgba(255,255,255,.18)",
@@ -2984,7 +3068,7 @@
                 color: getMarketColor(market),
                 weight: 1.5,
                 fillColor: getMarketColor(market),
-                fillOpacity: 0.18
+                fillOpacity: 0.2
               };
             },
             onEachFeature: (feature, layer) => {
@@ -2994,15 +3078,20 @@
               layer.bindPopup(createMarketPopup(market));
 
               layer.on({
-                click: () => updateMapSidePanel(market),
+                click: () => {
+                  updateMapSidePanel(market);
+                  flyToMarket(market.id);
+                },
                 mouseover: event => {
                   event.target.setStyle({
                     weight: 3,
-                    fillOpacity: 0.32
+                    fillOpacity: 0.34
                   });
                 },
                 mouseout: event => {
-                  globalHydrogenLayer.resetStyle(event.target);
+                  if (globalHydrogenLayer) {
+                    globalHydrogenLayer.resetStyle(event.target);
+                  }
                 }
               });
             }
@@ -3012,14 +3101,22 @@
           console.log("Country colour layer could not be loaded. Markers still work.");
         });
 
-      const defaultMarket = hydrogenMarkets.find(market => market.id === "germany");
-      if (defaultMarket) updateMapSidePanel(defaultMarket);
+      setTimeout(() => {
+        showWorldView();
+      }, 400);
+
+      window.addEventListener("resize", () => {
+        if (globalHydrogenMap) {
+          globalHydrogenMap.invalidateSize();
+        }
+      });
     }
 
     document.querySelectorAll(".map-chip[data-filter]").forEach(button => {
       button.addEventListener("click", () => {
-        document.querySelectorAll(".map-chip[data-filter]").forEach(item => item.classList.remove("active"));
+        document.querySelectorAll(".map-chip").forEach(item => item.classList.remove("active"));
         button.classList.add("active");
+
         activeMapFilter = button.dataset.filter;
         addHydrogenMarkers();
 
@@ -3027,10 +3124,29 @@
 
         if (filtered.length > 0 && globalHydrogenMap) {
           const bounds = L.latLngBounds(filtered.map(market => [market.lat, market.lng]));
-          globalHydrogenMap.fitBounds(bounds, { padding: [30, 30] });
+
+          globalHydrogenMap.fitBounds(bounds, {
+            padding: [35, 35],
+            maxZoom: activeMapFilter === "asia" || activeMapFilter === "europe" ? 5 : 4
+          });
+
           updateMapSidePanel(filtered[0]);
         }
       });
+    });
+
+    document.querySelectorAll(".map-chip[data-goto]").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".map-chip").forEach(item => item.classList.remove("active"));
+        button.classList.add("active");
+        flyToMarket(button.dataset.goto);
+      });
+    });
+
+    document.querySelector("[data-map-action='world']").addEventListener("click", event => {
+      document.querySelectorAll(".map-chip").forEach(item => item.classList.remove("active"));
+      event.currentTarget.classList.add("active");
+      showWorldView();
     });
 
     document.getElementById("locateMe")?.addEventListener("click", () => {
@@ -3056,13 +3172,17 @@
 
     document.getElementById("contactForm").addEventListener("submit", event => {
       event.preventDefault();
+
       const name = document.getElementById("name").value;
       const email = document.getElementById("email").value;
       const message = document.getElementById("message").value;
+
       const subject = currentLanguage === "de"
         ? "H2Jau-Energi Anfrage - Clean-Energy-Optimierung"
         : "H2Jau-Energi inquiry - clean energy optimisation";
+
       const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+
       window.location.href =
         "mailto:your.email@example.com?subject=" +
         encodeURIComponent(subject) +
@@ -3088,6 +3208,7 @@
     } catch (error) {}
 
     let savedLanguage = "en";
+
     try {
       const storedLanguage = localStorage.getItem("h2jauLanguage");
       if (storedLanguage === "de" || storedLanguage === "en") {
