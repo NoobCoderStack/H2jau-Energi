@@ -1,0 +1,2751 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>H2Jau-Energi | Clean Energy Decision Intelligence</title>
+  <meta
+    name="description"
+    content="H2Jau-Energi is a software-powered consulting and optimisation concept for renewable energy, hydrogen storage, fuel-cell backup and surplus hydrogen offtake."
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg: #050b10;
+      --bg2: #07131d;
+      --card: rgba(255,255,255,.075);
+      --card-strong: rgba(255,255,255,.12);
+      --line: rgba(255,255,255,.14);
+      --text: #f8fafc;
+      --muted: #a8b7c5;
+      --soft: #d8e7ef;
+      --green: #24f2b6;
+      --green2: #00b884;
+      --blue: #64a8ff;
+      --cyan: #48dbfb;
+      --yellow: #facc15;
+      --orange: #fb923c;
+      --red: #fb7185;
+      --shadow: 0 30px 100px rgba(0,0,0,.42);
+      --radius: 28px;
+      --max: 1180px;
+    }
+
+    html[data-theme="light"] {
+      --bg: #f7fbff;
+      --bg2: #edf7f5;
+      --card: rgba(255,255,255,.88);
+      --card-strong: rgba(255,255,255,.98);
+      --line: rgba(15,23,42,.13);
+      --text: #08131c;
+      --muted: #526170;
+      --soft: #22313f;
+      --shadow: 0 30px 100px rgba(15,23,42,.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 5%, rgba(36,242,182,.22), transparent 30%),
+        radial-gradient(circle at 85% 10%, rgba(100,168,255,.18), transparent 28%),
+        radial-gradient(circle at 50% 70%, rgba(250,204,21,.08), transparent 30%),
+        linear-gradient(180deg, var(--bg), var(--bg2) 45%, var(--bg));
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.026) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.026) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.15));
+      z-index: -2;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    .container {
+      width: min(var(--max), 92%);
+      margin: auto;
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--blue), var(--yellow));
+      z-index: 9999;
+    }
+
+    .energy-particles {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .energy-particles span {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--green);
+      box-shadow: 0 0 18px rgba(36,242,183,.8);
+      opacity: .25;
+      animation: driftParticle 18s linear infinite;
+    }
+
+    .energy-particles span:nth-child(1) { left: 6%; top: 78%; animation-duration: 17s; animation-delay: -1s; }
+    .energy-particles span:nth-child(2) { left: 18%; top: 32%; animation-duration: 22s; animation-delay: -5s; background: var(--blue); }
+    .energy-particles span:nth-child(3) { left: 31%; top: 88%; animation-duration: 19s; animation-delay: -7s; }
+    .energy-particles span:nth-child(4) { left: 47%; top: 24%; animation-duration: 25s; animation-delay: -3s; background: var(--yellow); }
+    .energy-particles span:nth-child(5) { left: 61%; top: 70%; animation-duration: 21s; animation-delay: -9s; }
+    .energy-particles span:nth-child(6) { left: 74%; top: 42%; animation-duration: 18s; animation-delay: -11s; background: var(--blue); }
+    .energy-particles span:nth-child(7) { left: 88%; top: 84%; animation-duration: 24s; animation-delay: -4s; }
+    .energy-particles span:nth-child(8) { left: 94%; top: 18%; animation-duration: 20s; animation-delay: -12s; background: var(--yellow); }
+    .energy-particles span:nth-child(9) { left: 12%; top: 12%; animation-duration: 26s; animation-delay: -8s; }
+    .energy-particles span:nth-child(10) { left: 39%; top: 58%; animation-duration: 23s; animation-delay: -6s; background: var(--blue); }
+
+    @keyframes driftParticle {
+      0% { transform: translate3d(0,40px,0) scale(.75); opacity: 0; }
+      12% { opacity: .28; }
+      50% { transform: translate3d(38px,-48px,0) scale(1.15); opacity: .42; }
+      100% { transform: translate3d(-18px,-135px,0) scale(.85); opacity: 0; }
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(5,11,16,.76);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    html[data-theme="light"] header {
+      background: rgba(247,251,255,.78);
+    }
+
+    .nav {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: -.045em;
+      font-size: 1.1rem;
+    }
+
+    .logo-mark {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: #031713;
+      font-weight: 900;
+      background: conic-gradient(from 140deg, var(--green), var(--blue), var(--yellow), var(--green));
+      box-shadow: 0 10px 34px rgba(36,242,182,.2);
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-mark::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border-radius: 12px;
+      border: 2px solid rgba(3,23,19,.32);
+    }
+
+    .brand span:last-child {
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: .86rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--green);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .round-btn {
+      min-width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: rgba(255,255,255,.06);
+      cursor: pointer;
+      font-weight: 900;
+      transition: .25s ease;
+    }
+
+    .round-btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(36,242,182,.45);
+    }
+
+    .mobile-menu-button {
+      display: none;
+    }
+
+    .mobile-menu {
+      display: none;
+      border-top: 1px solid var(--line);
+      padding: 14px 0 18px;
+    }
+
+    .mobile-menu.open {
+      display: block;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 12px 0;
+      color: var(--muted);
+      font-weight: 800;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    html[data-theme="light"] .mobile-menu a {
+      border-bottom-color: rgba(15,23,42,.08);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 46px;
+      padding: 13px 20px;
+      border-radius: 999px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: .25s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      color: #031713;
+      background: linear-gradient(135deg, var(--green), #b7ffe9);
+      box-shadow: 0 18px 48px rgba(36,242,182,.25);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255,255,255,.06);
+      border-color: var(--line);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    section {
+      padding: 92px 0;
+      position: relative;
+    }
+
+    .section-head {
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto 48px;
+    }
+
+    .section-head p {
+      font-size: 1.05rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      color: #bfffee;
+      border: 1px solid rgba(36,242,182,.34);
+      background: rgba(36,242,182,.08);
+      font-weight: 800;
+      font-size: .87rem;
+      margin-bottom: 22px;
+    }
+
+    html[data-theme="light"] .eyebrow {
+      color: #075341;
+    }
+
+    h1,
+    h2,
+    h3 {
+      letter-spacing: -.055em;
+      line-height: 1.05;
+    }
+
+    h1 {
+      font-size: clamp(2.65rem, 6.6vw, 6.15rem);
+      margin-bottom: 22px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4.3vw, 4rem);
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 1.22rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: var(--muted);
+    }
+
+    .card h2 {
+      font-size: clamp(1.6rem, 2.3vw, 2.4rem);
+      line-height: 1.08;
+      overflow-wrap: anywhere;
+    }
+
+    .lead {
+      font-size: 1.17rem;
+      max-width: 720px;
+      margin-bottom: 28px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--green), var(--cyan), var(--blue), var(--yellow));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero {
+      padding: 92px 0 72px;
+      min-height: calc(100vh - 78px);
+      display: grid;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr .98fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 34px;
+    }
+
+    .trust-row {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 14px;
+    }
+
+    .trust-card {
+      padding: 18px;
+      border-radius: 20px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+    }
+
+    .trust-card strong {
+      display: block;
+      color: var(--green);
+      font-size: 1.2rem;
+      letter-spacing: -.05em;
+      line-height: 1.2;
+    }
+
+    .trust-card span {
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .hero-product {
+      position: relative;
+      perspective: 1300px;
+      min-height: 680px;
+    }
+
+    .product-shell {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: min(590px,100%);
+      min-height: 640px;
+      padding: 24px;
+      border-radius: 38px;
+      background: linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.17);
+      box-shadow: var(--shadow);
+      transform-style: preserve-3d;
+      transform: rotateX(7deg) rotateY(-12deg);
+      overflow: hidden;
+    }
+
+    .product-shell::before {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      background:
+        radial-gradient(circle at 40% 15%, rgba(36,242,182,.24), transparent 28%),
+        radial-gradient(circle at 72% 70%, rgba(100,168,255,.22), transparent 30%);
+      pointer-events: none;
+    }
+
+    .dashboard {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      gap: 16px;
+    }
+
+    .dashboard-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(3,14,20,.7);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    html[data-theme="light"] .dashboard-top {
+      background: rgba(255,255,255,.78);
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: #c7fff0;
+      border: 1px solid rgba(36,242,182,.28);
+      background: rgba(36,242,182,.08);
+      font-size: .82rem;
+      font-weight: 900;
+    }
+
+    html[data-theme="light"] .status-pill {
+      color: #075341;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 16px rgba(36,242,182,.8);
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .metric-card {
+      min-height: 118px;
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(3,14,20,.66);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    html[data-theme="light"] .metric-card {
+      background: rgba(255,255,255,.78);
+    }
+
+    .metric-card::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      right: -48px;
+      bottom: -58px;
+      background: rgba(36,242,182,.08);
+      filter: blur(10px);
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .metric-value {
+      font-size: 1.75rem;
+      font-weight: 900;
+      letter-spacing: -.06em;
+      color: var(--green);
+    }
+
+    .metric-sub {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .dashboard-flow {
+      min-height: 260px;
+      border-radius: 28px;
+      background: rgba(3,14,20,.66);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+      padding: 18px;
+    }
+
+    html[data-theme="light"] .dashboard-flow {
+      background: rgba(255,255,255,.78);
+    }
+
+    .flow-orbit {
+      position: absolute;
+      inset: 54px 62px;
+      border: 1px dashed rgba(36,242,182,.26);
+      border-radius: 999px;
+      animation: slowRotate 18s linear infinite;
+    }
+
+    @keyframes slowRotate {
+      to { transform: rotate(360deg); }
+    }
+
+    .flow-node {
+      position: absolute;
+      width: 88px;
+      min-height: 70px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 10px;
+      color: #031713;
+      background: linear-gradient(135deg, var(--green), #dffff4);
+      font-weight: 900;
+      font-size: .76rem;
+      box-shadow: 0 14px 40px rgba(36,242,182,.22);
+    }
+
+    .fn-pv { left: 25px; top: 36px; }
+    .fn-load { right: 28px; top: 38px; }
+    .fn-battery { left: 46px; bottom: 34px; background: linear-gradient(135deg, var(--blue), #dbeafe); }
+    .fn-h2 { right: 46px; bottom: 34px; background: linear-gradient(135deg, var(--yellow), #fef9c3); }
+    .fn-engine {
+      left: 50%;
+      top: 50%;
+      width: 120px;
+      min-height: 100px;
+      transform: translate(-50%,-50%);
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #dffff4, var(--green) 48%, var(--blue));
+      font-size: .88rem;
+    }
+
+    .energy-line {
+      position: absolute;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, var(--green), var(--blue), transparent);
+      animation: pulseLine 2.4s infinite ease-in-out;
+      opacity: .8;
+    }
+
+    .el1 { width: 170px; left: 98px; top: 82px; transform: rotate(16deg); }
+    .el2 { width: 155px; right: 102px; top: 83px; transform: rotate(-16deg); }
+    .el3 { width: 150px; left: 108px; bottom: 79px; transform: rotate(-18deg); }
+    .el4 { width: 150px; right: 106px; bottom: 79px; transform: rotate(18deg); }
+
+    @keyframes pulseLine {
+      50% {
+        filter: drop-shadow(0 0 16px rgba(36,242,182,.8));
+        opacity: .5;
+      }
+    }
+
+    .dashboard-bottom {
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(3,14,20,.66);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    html[data-theme="light"] .dashboard-bottom {
+      background: rgba(255,255,255,.78);
+    }
+
+    .mini-bars {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .mini-bar {
+      height: 8px;
+      background: rgba(255,255,255,.12);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    html[data-theme="light"] .mini-bar {
+      background: rgba(15,23,42,.1);
+    }
+
+    .mini-bar span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), var(--blue));
+      border-radius: 999px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 20px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 22px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: .92fr 1.08fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .market-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .gap-layout {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 22px;
+      align-items: stretch;
+      margin-top: 22px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      padding: 28px;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 70px rgba(0,0,0,.16);
+      backdrop-filter: blur(12px);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -60px auto;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: rgba(36,242,182,.09);
+      filter: blur(20px);
+      pointer-events: none;
+    }
+
+    .icon-badge {
+      width: 58px;
+      height: 58px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(36,242,182,.18), rgba(100,168,255,.18));
+      border: 1px solid rgba(255,255,255,.12);
+      margin-bottom: 18px;
+      font-size: 1.45rem;
+      font-weight: 900;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .pill {
+      display: inline-flex;
+      padding: 9px 12px;
+      border-radius: 999px;
+      color: #c7fff0;
+      border: 1px solid rgba(36,242,182,.22);
+      background: rgba(36,242,182,.07);
+      font-size: .86rem;
+      font-weight: 700;
+    }
+
+    html[data-theme="light"] .pill {
+      color: #075341;
+    }
+
+    .decision-flow {
+      display: grid;
+      gap: 14px;
+    }
+
+    .flow-step {
+      display: grid;
+      grid-template-columns: 64px 1fr auto;
+      gap: 18px;
+      align-items: center;
+      padding: 20px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--line);
+      transition: .25s ease;
+    }
+
+    .flow-step:hover {
+      border-color: rgba(36,242,182,.4);
+      transform: translateX(4px);
+    }
+
+    .step-number {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      color: #031713;
+      background: linear-gradient(135deg, var(--green), #b7ffe9);
+      font-weight: 900;
+      font-size: 1.05rem;
+    }
+
+    .step-tag {
+      color: var(--yellow);
+      font-weight: 900;
+      font-size: .9rem;
+      white-space: nowrap;
+    }
+
+    .simulator-panel {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .control-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .slider-row {
+      display: grid;
+      gap: 10px;
+    }
+
+    .slider-row label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--soft);
+      font-weight: 800;
+    }
+
+    input[type="range"] {
+      accent-color: var(--green);
+      width: 100%;
+    }
+
+    .sim-output {
+      display: grid;
+      gap: 14px;
+    }
+
+    .path-card {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.055);
+    }
+
+    .path-card strong {
+      display: block;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 18px;
+    }
+
+    .module-card {
+      min-height: 210px;
+    }
+
+    .module-number {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--green), #b7ffe9);
+      color: #031713;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .policy-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 16px;
+    }
+
+    .policy-card {
+      min-height: 245px;
+    }
+
+    .policy-card strong {
+      display: block;
+      color: var(--green);
+      font-size: 2rem;
+      letter-spacing: -.06em;
+      margin-bottom: 8px;
+    }
+
+    .policy-tag {
+      display: inline-flex;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(36,242,182,.08);
+      border: 1px solid rgba(36,242,182,.22);
+      color: var(--green);
+      font-size: .78rem;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .target-track {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .target-row {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 16px;
+      align-items: center;
+      padding: 15px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.045);
+    }
+
+    .target-year {
+      color: var(--yellow);
+      font-weight: 900;
+      font-size: 1.1rem;
+    }
+
+    .map-card {
+      min-height: 430px;
+    }
+
+    .map-visual {
+      position: relative;
+      min-height: 390px;
+      border-radius: 26px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 48% 45%, rgba(36,242,182,.22), transparent 32%),
+        radial-gradient(circle at 70% 30%, rgba(100,168,255,.18), transparent 28%),
+        linear-gradient(145deg, rgba(100,168,255,.08), rgba(36,242,182,.055));
+      overflow: hidden;
+      margin-top: 18px;
+    }
+
+    .europe-map {
+      position: absolute;
+      inset: 12px 12px 66px 12px;
+      width: calc(100% - 24px);
+      height: calc(100% - 78px);
+      opacity: .95;
+    }
+
+    .map-land {
+      fill: rgba(216,231,239,.18);
+      stroke: rgba(255,255,255,.35);
+      stroke-width: 1.4;
+      filter: drop-shadow(0 10px 26px rgba(0,0,0,.25));
+    }
+
+    html[data-theme="light"] .map-land {
+      fill: rgba(8,19,28,.08);
+      stroke: rgba(8,19,28,.23);
+    }
+
+    .map-sea-line {
+      fill: none;
+      stroke: rgba(36,242,182,.38);
+      stroke-width: 2;
+      stroke-dasharray: 8 10;
+      animation: mapDash 4s linear infinite;
+    }
+
+    .map-pipeline-path {
+      fill: none;
+      stroke: url(#pipelineGradient);
+      stroke-width: 5;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 14px rgba(36,242,182,.55));
+      stroke-dasharray: 10 8;
+      animation: mapDash 2.2s linear infinite;
+    }
+
+    @keyframes mapDash {
+      to { stroke-dashoffset: -90; }
+    }
+
+    .map-dot {
+      position: absolute;
+      width: 43px;
+      height: 43px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #031713;
+      background: linear-gradient(135deg, var(--green), #dffff4);
+      box-shadow: 0 12px 36px rgba(36,242,182,.34);
+      font-weight: 900;
+      font-size: .78rem;
+      border: 2px solid rgba(255,255,255,.7);
+      cursor: pointer;
+      transition: .25s ease;
+      z-index: 3;
+    }
+
+    .map-dot:hover {
+      transform: scale(1.15);
+    }
+
+    .dot-de { left: 50%; top: 43%; }
+    .dot-nl { left: 41%; top: 41%; }
+    .dot-fr { left: 42%; top: 58%; }
+    .dot-es { left: 27%; top: 75%; }
+    .dot-dk { left: 52%; top: 25%; }
+    .dot-pl { left: 64%; top: 44%; }
+
+    .map-caption {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(3,14,20,.72);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--muted);
+      font-size: .86rem;
+      z-index: 4;
+    }
+
+    html[data-theme="light"] .map-caption {
+      background: rgba(255,255,255,.88);
+    }
+
+    .progress-comparison {
+      display: grid;
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .comparison-row {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .comparison-label {
+      font-weight: 900;
+      color: var(--soft);
+      line-height: 1.15;
+    }
+
+    .comparison-track {
+      position: relative;
+      height: 54px;
+      border-radius: 999px;
+      background: rgba(216,231,239,.18);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      box-shadow: inset 0 0 20px rgba(0,0,0,.12);
+    }
+
+    html[data-theme="light"] .comparison-track {
+      background: rgba(8,19,28,.08);
+    }
+
+    .comparison-fill {
+      width: var(--w);
+      height: 100%;
+      min-width: 48px;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #073763, #007f75, var(--green));
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 20px;
+      color: #f8fafc;
+      font-weight: 900;
+      letter-spacing: .06em;
+      box-shadow: 0 0 26px rgba(36,242,182,.24);
+    }
+
+    .comparison-fill.tiny {
+      justify-content: center;
+      padding-right: 0;
+      font-size: .78rem;
+      letter-spacing: 0;
+    }
+
+    .comparison-note {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--line);
+    }
+
+    .gap-number {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .mini-stat {
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.045);
+    }
+
+    .mini-stat strong {
+      display: block;
+      color: var(--green);
+      font-size: 1.5rem;
+      letter-spacing: -.05em;
+    }
+
+    .mini-stat span {
+      color: var(--muted);
+      font-size: .84rem;
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 20px;
+    }
+
+    .value-card ul {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .value-card li {
+      display: flex;
+      gap: 10px;
+      color: var(--muted);
+    }
+
+    .value-card li::before {
+      content: "✓";
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .impact-banner {
+      margin-top: 22px;
+      padding: 34px;
+      border-radius: 32px;
+      border: 1px solid rgba(36,242,182,.22);
+      background: linear-gradient(135deg, rgba(36,242,182,.13), rgba(100,168,255,.11));
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .impact-banner p {
+      max-width: 760px;
+    }
+
+    .calculator {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .calc-form {
+      display: grid;
+      gap: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      color: var(--soft);
+      font-weight: 700;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(3,14,20,.72);
+      color: var(--text);
+      padding: 14px 15px;
+      outline: none;
+    }
+
+    html[data-theme="light"] input,
+    html[data-theme="light"] textarea {
+      background: rgba(255,255,255,.86);
+    }
+
+    textarea {
+      min-height: 125px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(36,242,182,.5);
+      box-shadow: 0 0 0 4px rgba(36,242,182,.08);
+    }
+
+    .result-box {
+      display: grid;
+      gap: 14px;
+    }
+
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--line);
+    }
+
+    .result-item span {
+      color: var(--muted);
+    }
+
+    .result-item b {
+      color: var(--green);
+      text-align: right;
+    }
+
+    .formula-box {
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px dashed rgba(36,242,182,.35);
+      background: rgba(36,242,182,.055);
+    }
+
+    .formula-box code {
+      color: var(--soft);
+      font-size: .88rem;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 20px;
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.055);
+      border: 1px solid var(--line);
+    }
+
+    .phase {
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 16px;
+    }
+
+    .source-card a {
+      color: var(--green);
+      font-weight: 900;
+      word-break: break-word;
+    }
+
+    .cta {
+      padding: 56px;
+      border-radius: 38px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(36,242,182,.17), rgba(100,168,255,.15), rgba(250,204,21,.09));
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: var(--shadow);
+    }
+
+    .cta p {
+      max-width: 850px;
+      margin: 0 auto 28px;
+      font-size: 1.08rem;
+    }
+
+    .contact-form {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 14px;
+      margin-top: 28px;
+      text-align: left;
+    }
+
+    .contact-form textarea,
+    .contact-form button {
+      grid-column: 1 / -1;
+    }
+
+    footer {
+      padding: 34px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .source-note {
+      font-size: .82rem;
+      color: #8194a3;
+      margin-top: 16px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: .7s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 1080px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-button {
+        display: inline-grid;
+        place-items: center;
+      }
+
+      .hero-grid,
+      .split,
+      .market-grid,
+      .calculator,
+      .grid-2,
+      .policy-grid,
+      .gap-layout,
+      .source-grid,
+      .module-grid,
+      .simulator-panel,
+      .value-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-product {
+        min-height: 710px;
+      }
+
+      .product-shell {
+        inset: 0;
+        margin: auto;
+      }
+
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .trust-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .hero {
+        padding-top: 50px;
+      }
+
+      .nav-actions .btn {
+        display: none;
+      }
+
+      .brand span:last-child {
+        font-size: .95rem;
+      }
+
+      .hero-product {
+        min-height: 800px;
+      }
+
+      .product-shell {
+        min-height: 760px;
+        padding: 16px;
+        transform: none !important;
+      }
+
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-flow {
+        min-height: 310px;
+      }
+
+      .flow-node {
+        width: 78px;
+        min-height: 60px;
+        font-size: .68rem;
+      }
+
+      .fn-engine {
+        width: 105px;
+        min-height: 88px;
+      }
+
+      .energy-line,
+      .flow-orbit {
+        display: none;
+      }
+
+      .flow-step,
+      .timeline-row,
+      .target-row,
+      .comparison-row {
+        grid-template-columns: 1fr;
+      }
+
+      .result-item {
+        flex-direction: column;
+      }
+
+      .result-item b {
+        text-align: left;
+      }
+
+      .gap-number {
+        grid-template-columns: 1fr;
+      }
+
+      .impact-banner {
+        grid-template-columns: 1fr;
+        padding: 26px 20px;
+      }
+
+      .cta {
+        padding: 32px 20px;
+      }
+
+      .contact-form {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-form textarea,
+      .contact-form button {
+        grid-column: auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="energy-particles" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="H2Jau-Energi home">
+        <span class="logo-mark">H2</span>
+        <span>H2Jau-Energi</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#problem" data-en="Problem" data-de="Problem">Problem</a>
+        <a href="#solution" data-en="Solution" data-de="Lösung">Solution</a>
+        <a href="#simulator" data-en="Simulator" data-de="Simulator">Simulator</a>
+        <a href="#modules" data-en="Modules" data-de="Module">Modules</a>
+        <a href="#policy" data-en="Policy" data-de="Politik">Policy</a>
+        <a href="#gap" data-en="Gap" data-de="Lücke">Gap</a>
+        <a href="#calculator" data-en="Quick Check" data-de="Quick Check">Quick Check</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="round-btn" id="languageToggle" aria-label="Toggle language">DE</button>
+        <button class="round-btn" id="themeToggle" aria-label="Toggle theme">☾</button>
+        <button class="round-btn mobile-menu-button" id="menuToggle" aria-label="Open menu">☰</button>
+        <a class="btn btn-primary" href="#contact" data-en="Talk to us" data-de="Kontakt">Talk to us</a>
+      </div>
+    </div>
+
+    <div class="container mobile-menu" id="mobileMenu">
+      <a href="#problem" data-en="Problem" data-de="Problem">Problem</a>
+      <a href="#solution" data-en="Solution" data-de="Lösung">Solution</a>
+      <a href="#simulator" data-en="Simulator" data-de="Simulator">Simulator</a>
+      <a href="#modules" data-en="Modules" data-de="Module">Modules</a>
+      <a href="#policy" data-en="Policy" data-de="Politik">Policy</a>
+      <a href="#gap" data-en="Gap" data-de="Lücke">Gap</a>
+      <a href="#calculator" data-en="Quick Check" data-de="Quick Check">Quick Check</a>
+      <a href="#contact" data-en="Contact" data-de="Kontakt">Contact</a>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <div
+            class="eyebrow"
+            data-en="Clean Energy Decision Intelligence · Start-Up Project SS2026"
+            data-de="Clean Energy Decision Intelligence · Start-Up-Projekt SS2026"
+          >
+            Clean Energy Decision Intelligence · Start-Up Project SS2026
+          </div>
+
+          <h1
+            data-en-html="From renewable surplus to <span class='gradient-text'>hydrogen resilience.</span>"
+            data-de-html="Von erneuerbarem Überschuss zu <span class='gradient-text'>Wasserstoffresilienz.</span>"
+          >
+            From renewable surplus to <span class="gradient-text">hydrogen resilience.</span>
+          </h1>
+
+          <p
+            class="lead"
+            data-en="H2Jau-Energi turns complex energy data into investable decisions. We optimise when renewable electricity should be used directly, stored in batteries, converted into hydrogen for fuel-cell backup, or sold as surplus hydrogen to offtakers."
+            data-de="H2Jau-Energi verwandelt komplexe Energiedaten in investierbare Entscheidungen. Wir optimieren, wann erneuerbarer Strom direkt genutzt, in Batterien gespeichert, in Wasserstoff für Brennstoffzellen-Backup umgewandelt oder als Überschusswasserstoff an Abnehmer verkauft werden sollte."
+          >
+            H2Jau-Energi turns complex energy data into investable decisions. We optimise when renewable electricity should be used directly, stored in batteries, converted into hydrogen for fuel-cell backup, or sold as surplus hydrogen to offtakers.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#simulator" class="btn btn-primary" data-en="Try the system simulator" data-de="System-Simulator testen">Try the system simulator</a>
+            <a href="#gap" class="btn btn-secondary" data-en="View Europe’s H2 gap" data-de="Europas H2-Lücke ansehen">View Europe’s H2 gap</a>
+          </div>
+
+          <div class="trust-row">
+            <div class="trust-card">
+              <strong data-en="Software + Consulting" data-de="Software + Beratung">Software + Consulting</strong>
+              <span data-en="Decision support before investment" data-de="Entscheidungsunterstützung vor der Investition">Decision support before investment</span>
+            </div>
+            <div class="trust-card">
+              <strong data-en="PV · Battery · H2" data-de="PV · Batterie · H2">PV · Battery · H2</strong>
+              <span data-en="Integrated techno-economic analysis" data-de="Integrierte techno-ökonomische Analyse">Integrated techno-economic analysis</span>
+            </div>
+            <div class="trust-card">
+              <strong data-en="Fuel-cell backup" data-de="Brennstoffzellen-Backup">Fuel-cell backup</strong>
+              <span data-en="On-site resilience before surplus sales" data-de="Standortresilienz vor Überschussverkauf">On-site resilience before surplus sales</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-product reveal" aria-label="H2Jau-Energi product dashboard">
+          <div class="product-shell tilt-card">
+            <div class="dashboard">
+              <div class="dashboard-top">
+                <div>
+                  <strong>H2Jau-Energi OS</strong>
+                  <p data-en="Live optimisation view" data-de="Live-Optimierungsansicht">Live optimisation view</p>
+                </div>
+                <span class="status-pill">
+                  <span class="status-dot"></span>
+                  <span data-en="System ready" data-de="System bereit">System ready</span>
+                </span>
+              </div>
+
+              <div class="dashboard-grid">
+                <div class="metric-card">
+                  <div class="metric-label" data-en="PV Output" data-de="PV-Leistung">PV Output</div>
+                  <div class="metric-value" id="heroPv">5.2 MW</div>
+                  <div class="metric-sub" data-en="renewable generation" data-de="erneuerbare Erzeugung">renewable generation</div>
+                </div>
+
+                <div class="metric-card">
+                  <div class="metric-label" data-en="Battery Status" data-de="Batteriestatus">Battery Status</div>
+                  <div class="metric-value" id="heroBattery">72%</div>
+                  <div class="metric-sub" data-en="short-term flexibility" data-de="kurzfristige Flexibilität">short-term flexibility</div>
+                </div>
+
+                <div class="metric-card">
+                  <div class="metric-label" data-en="H2 Tank Level" data-de="H2-Tankfüllstand">H2 Tank Level</div>
+                  <div class="metric-value" id="heroTank">41%</div>
+                  <div class="metric-sub" data-en="backup energy reserve" data-de="Backup-Energiereserve">backup energy reserve</div>
+                </div>
+
+                <div class="metric-card">
+                  <div class="metric-label" data-en="CO2 Avoided" data-de="CO2 vermieden">CO2 Avoided</div>
+                  <div class="metric-value" id="heroCo2">1,240 t</div>
+                  <div class="metric-sub" data-en="estimated per year" data-de="geschätzt pro Jahr">estimated per year</div>
+                </div>
+              </div>
+
+              <div class="dashboard-flow">
+                <div class="flow-orbit"></div>
+                <div class="energy-line el1"></div>
+                <div class="energy-line el2"></div>
+                <div class="energy-line el3"></div>
+                <div class="energy-line el4"></div>
+
+                <div class="flow-node fn-pv">PV</div>
+                <div class="flow-node fn-load" data-en="Load" data-de="Last">Load</div>
+                <div class="flow-node fn-battery" data-en="Battery" data-de="Batterie">Battery</div>
+                <div class="flow-node fn-h2">H2</div>
+                <div class="flow-node fn-engine" data-en-html="Optimisation<br>Engine" data-de-html="Optimierungs-<br>Engine">Optimisation<br>Engine</div>
+              </div>
+
+              <div class="dashboard-bottom">
+                <strong data-en="Recommended dispatch" data-de="Empfohlene Fahrweise">Recommended dispatch</strong>
+                <p
+                  id="dashboardRecommendation"
+                  data-en="Use PV directly, charge battery, convert remaining surplus to H2 for backup."
+                  data-de="PV direkt nutzen, Batterie laden, restlichen Überschuss in H2 für Backup umwandeln."
+                >
+                  Use PV directly, charge battery, convert remaining surplus to H2 for backup.
+                </p>
+                <div class="mini-bars">
+                  <div class="mini-bar"><span style="width:82%"></span></div>
+                  <div class="mini-bar"><span style="width:67%"></span></div>
+                  <div class="mini-bar"><span style="width:74%"></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="problem">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2
+            data-en="The problem: clean energy decisions are becoming too complex."
+            data-de="Das Problem: Clean-Energy-Entscheidungen werden immer komplexer."
+          >
+            The problem: clean energy decisions are becoming too complex.
+          </h2>
+          <p
+            data-en="Commercial and industrial sites face energy cost risk, CO2 targets and renewable generation volatility. At the same time, batteries, electrolysers, hydrogen tanks and fuel cells must be sized and operated together."
+            data-de="Gewerbe- und Industriestandorte stehen unter Druck durch Energiekosten, CO2-Ziele und volatile erneuerbare Erzeugung. Gleichzeitig müssen Batterien, Elektrolyseure, Wasserstofftanks und Brennstoffzellen gemeinsam dimensioniert und betrieben werden."
+          >
+            Commercial and industrial sites face energy cost risk, CO2 targets and renewable generation volatility. At the same time, batteries, electrolysers, hydrogen tanks and fuel cells must be sized and operated together.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card reveal">
+            <div class="icon-badge">€</div>
+            <h3 data-en="Energy cost risk" data-de="Energiekostenrisiko">Energy cost risk</h3>
+            <p data-en="High electricity demand turns energy purchasing into a strategic business risk." data-de="Hoher Strombedarf macht den Energieeinkauf zu einem strategischen Geschäftsrisiko.">
+              High electricity demand turns energy purchasing into a strategic business risk.
+            </p>
+          </article>
+
+          <article class="card reveal">
+            <div class="icon-badge">CO2</div>
+            <h3 data-en="Decarbonisation pressure" data-de="Dekarbonisierungsdruck">Decarbonisation pressure</h3>
+            <p data-en="EU and German policy increasingly rewards credible renewable and hydrogen pathways." data-de="EU- und deutsche Politik erhöhen die Bedeutung glaubwürdiger erneuerbarer Energie- und Wasserstoffpfade.">
+              EU and German policy increasingly rewards credible renewable and hydrogen pathways.
+            </p>
+          </article>
+
+          <article class="card reveal">
+            <div class="icon-badge">H2</div>
+            <h3 data-en="Storage complexity" data-de="Speicherkomplexität">Storage complexity</h3>
+            <p data-en="Surplus electricity can become backup energy and, after site needs are covered, sellable hydrogen." data-de="Überschussstrom kann Backup-Energie und nach Deckung des Standortbedarfs verkaufbarer Wasserstoff werden.">
+              Surplus electricity can become backup energy and, after site needs are covered, sellable hydrogen.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="solution">
+      <div class="container split">
+        <div class="reveal">
+          <div class="eyebrow" data-en="Our solution" data-de="Unsere Lösung">Our solution</div>
+          <h2
+            data-en="A digital decision layer for renewable power, storage and hydrogen resilience."
+            data-de="Eine digitale Entscheidungsebene für erneuerbaren Strom, Speicher und Wasserstoffresilienz."
+          >
+            A digital decision layer for renewable power, storage and hydrogen resilience.
+          </h2>
+          <p
+            data-en="H2Jau-Energi combines software-based analysis with professional consulting. The tool processes site data, load profiles, generation profiles, price assumptions, storage options, hydrogen pathways and regulatory context."
+            data-de="H2Jau-Energi kombiniert softwarebasierte Analyse mit professioneller Beratung. Das Tool verarbeitet Standortdaten, Lastprofile, Erzeugungsprofile, Preisannahmen, Speicheroptionen, Wasserstoffpfade und regulatorischen Kontext."
+          >
+            H2Jau-Energi combines software-based analysis with professional consulting. The tool processes site data, load profiles, generation profiles, price assumptions, storage options, hydrogen pathways and regulatory context.
+          </p>
+
+          <div class="pill-list">
+            <span class="pill">Technical simulation</span>
+            <span class="pill">LCOE / LCOH</span>
+            <span class="pill">CAPEX / OPEX</span>
+            <span class="pill">ROI / Payback</span>
+            <span class="pill">CO2 pathway</span>
+            <span class="pill">Investor report</span>
+          </div>
+        </div>
+
+        <div class="decision-flow reveal">
+          <div class="flow-step">
+            <span class="step-number">1</span>
+            <div>
+              <h3 data-en="Use electricity directly" data-de="Strom direkt nutzen">Use electricity directly</h3>
+              <p data-en="Renewable electricity first reduces grid import and creates immediate site value." data-de="Erneuerbarer Strom reduziert zuerst den Netzbezug und schafft direkten Standortwert.">
+                Renewable electricity first reduces grid import and creates immediate site value.
+              </p>
+            </div>
+            <span class="step-tag" data-en="Priority 1" data-de="Priorität 1">Priority 1</span>
+          </div>
+
+          <div class="flow-step">
+            <span class="step-number">2</span>
+            <div>
+              <h3 data-en="Store short-term surplus in batteries" data-de="Kurzfristigen Überschuss in Batterien speichern">Store short-term surplus in batteries</h3>
+              <p data-en="Battery storage handles short fluctuations and improves self-consumption." data-de="Batteriespeicher decken kurze Schwankungen ab und erhöhen den Eigenverbrauch.">
+                Battery storage handles short fluctuations and improves self-consumption.
+              </p>
+            </div>
+            <span class="step-tag" data-en="Priority 2" data-de="Priorität 2">Priority 2</span>
+          </div>
+
+          <div class="flow-step">
+            <span class="step-number">3</span>
+            <div>
+              <h3 data-en="Produce green hydrogen from remaining surplus" data-de="Grünen Wasserstoff aus verbleibendem Überschuss produzieren">Produce green hydrogen from remaining surplus</h3>
+              <p data-en="Hydrogen is produced when renewable electricity exceeds direct use and battery needs." data-de="Wasserstoff wird erzeugt, wenn erneuerbarer Strom Eigenverbrauch und Batteriebedarf übersteigt.">
+                Hydrogen is produced when renewable electricity exceeds direct use and battery needs.
+              </p>
+            </div>
+            <span class="step-tag" data-en="Priority 3" data-de="Priorität 3">Priority 3</span>
+          </div>
+
+          <div class="flow-step">
+            <span class="step-number">4</span>
+            <div>
+              <h3 data-en="Use hydrogen on-site, then sell surplus" data-de="Wasserstoff vor Ort nutzen, dann Überschuss verkaufen">Use hydrogen on-site, then sell surplus</h3>
+              <p data-en="Stored hydrogen supports fuel-cell backup during low renewable generation. Only excess hydrogen is considered for offtakers." data-de="Gespeicherter Wasserstoff unterstützt Brennstoffzellen-Backup bei geringer erneuerbarer Erzeugung. Nur zusätzlicher Wasserstoff wird für Abnehmer betrachtet.">
+                Stored hydrogen supports fuel-cell backup during low renewable generation. Only excess hydrogen is considered for offtakers.
+              </p>
+            </div>
+            <span class="step-tag" data-en="H2 backup + surplus" data-de="H2-Backup + Überschuss">H2 backup + surplus</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="simulator">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow" data-en="Interactive system simulator" data-de="Interaktiver Systemsimulator">Interactive system simulator</div>
+          <h2 data-en="Move the sliders. Watch the dispatch logic change." data-de="Bewege die Regler. Beobachte, wie sich die Fahrweise ändert.">
+            Move the sliders. Watch the dispatch logic change.
+          </h2>
+          <p
+            data-en="This small simulator makes the H2Jau-Energi logic tangible: direct use first, battery for short-term flexibility, hydrogen for backup, surplus hydrogen for offtakers."
+            data-de="Dieser kleine Simulator macht die H2Jau-Energi-Logik greifbar: zuerst Eigenverbrauch, Batterie für kurzfristige Flexibilität, Wasserstoff für Backup, Überschusswasserstoff für Abnehmer."
+          >
+            This small simulator makes the H2Jau-Energi logic tangible: direct use first, battery for short-term flexibility, hydrogen for backup, surplus hydrogen for offtakers.
+          </p>
+        </div>
+
+        <div class="simulator-panel">
+          <div class="card reveal">
+            <h3 data-en="Scenario controls" data-de="Szenario-Regler">Scenario controls</h3>
+            <div class="control-grid">
+              <div class="slider-row">
+                <label>
+                  <span data-en="Solar generation" data-de="Solarerzeugung">Solar generation</span>
+                  <span id="solarValue">High</span>
+                </label>
+                <input id="solarSlider" type="range" min="1" max="3" value="3" />
+              </div>
+
+              <div class="slider-row">
+                <label>
+                  <span data-en="Site electricity demand" data-de="Strombedarf am Standort">Site electricity demand</span>
+                  <span id="demandValue">Medium</span>
+                </label>
+                <input id="demandSlider" type="range" min="1" max="3" value="2" />
+              </div>
+
+              <div class="slider-row">
+                <label>
+                  <span data-en="Battery capacity" data-de="Batteriekapazität">Battery capacity</span>
+                  <span id="batteryValue">Medium</span>
+                </label>
+                <input id="batterySlider" type="range" min="1" max="3" value="2" />
+              </div>
+
+              <div class="slider-row">
+                <label>
+                  <span data-en="Hydrogen priority" data-de="Wasserstoffpriorität">Hydrogen priority</span>
+                  <span id="h2PriorityValue">Backup first</span>
+                </label>
+                <input id="h2PrioritySlider" type="range" min="1" max="2" value="1" />
+              </div>
+            </div>
+          </div>
+
+          <div class="card sim-output reveal">
+            <h3 data-en="Recommended dispatch path" data-de="Empfohlener Einsatzpfad">Recommended dispatch path</h3>
+
+            <div class="path-card">
+              <strong data-en="Primary action" data-de="Primäre Aktion">Primary action</strong>
+              <p id="simPrimary">Use PV directly and charge battery.</p>
+            </div>
+
+            <div class="path-card">
+              <strong data-en="Hydrogen action" data-de="Wasserstoff-Aktion">Hydrogen action</strong>
+              <p id="simHydrogen">Convert remaining surplus into H2 for on-site backup.</p>
+            </div>
+
+            <div class="path-card">
+              <strong data-en="Business implication" data-de="Geschäftliche Bedeutung">Business implication</strong>
+              <p id="simBusiness">Good case for H2 storage, fuel-cell backup and optional surplus offtake screening.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="modules">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow" data-en="Software modules" data-de="Softwaremodule">Software modules</div>
+          <h2 data-en="A product structure investors can understand." data-de="Eine Produktstruktur, die Investoren verstehen.">
+            A product structure investors can understand.
+          </h2>
+          <p
+            data-en="H2Jau-Energi starts as consulting-supported software and can grow into a repeatable SaaS product for multiple sites and portfolios."
+            data-de="H2Jau-Energi startet als beratungsunterstützte Software und kann zu einem wiederholbaren SaaS-Produkt für mehrere Standorte und Portfolios wachsen."
+          >
+            H2Jau-Energi starts as consulting-supported software and can grow into a repeatable SaaS product for multiple sites and portfolios.
+          </p>
+        </div>
+
+        <div class="module-grid">
+          <article class="card module-card reveal">
+            <div class="module-number">01</div>
+            <h3 data-en="Site Potential Check" data-de="Standort-Potenzialcheck">Site Potential Check</h3>
+            <p data-en="Initial screening of area, load, renewable potential and energy cost exposure." data-de="Erste Prüfung von Fläche, Last, erneuerbarem Potenzial und Energiekostenrisiko.">
+              Initial screening of area, load, renewable potential and energy cost exposure.
+            </p>
+          </article>
+
+          <article class="card module-card reveal">
+            <div class="module-number">02</div>
+            <h3 data-en="PV + Battery Optimiser" data-de="PV- + Batterieoptimierer">PV + Battery Optimiser</h3>
+            <p data-en="Compares self-consumption, battery sizing and short-term flexibility value." data-de="Vergleicht Eigenverbrauch, Batteriedimensionierung und kurzfristigen Flexibilitätswert.">
+              Compares self-consumption, battery sizing and short-term flexibility value.
+            </p>
+          </article>
+
+          <article class="card module-card reveal">
+            <div class="module-number">03</div>
+            <h3 data-en="Hydrogen Sizing" data-de="Wasserstoffdimensionierung">Hydrogen Sizing</h3>
+            <p data-en="Evaluates electrolyser size, hydrogen tank capacity and backup energy requirements." data-de="Bewertet Elektrolyseurgröße, Wasserstofftankkapazität und Backup-Energiebedarf.">
+              Evaluates electrolyser size, hydrogen tank capacity and backup energy requirements.
+            </p>
+          </article>
+
+          <article class="card module-card reveal">
+            <div class="module-number">04</div>
+            <h3 data-en="Fuel Cell Backup Simulation" data-de="Brennstoffzellen-Backup-Simulation">Fuel Cell Backup Simulation</h3>
+            <p data-en="Checks how stored hydrogen can support the site at night or during renewable fluctuations." data-de="Prüft, wie gespeicherter Wasserstoff den Standort nachts oder bei Erzeugungsschwankungen unterstützt.">
+              Checks how stored hydrogen can support the site at night or during renewable fluctuations.
+            </p>
+          </article>
+
+          <article class="card module-card reveal">
+            <div class="module-number">05</div>
+            <h3 data-en="LCOH / ROI Dashboard" data-de="LCOH- / ROI-Dashboard">LCOH / ROI Dashboard</h3>
+            <p data-en="Calculates CAPEX, OPEX, LCOH, CO2 savings, payback and sensitivity ranges." data-de="Berechnet CAPEX, OPEX, LCOH, CO2-Einsparung, Payback und Sensitivitäten.">
+              Calculates CAPEX, OPEX, LCOH, CO2 savings, payback and sensitivity ranges.
+            </p>
+          </article>
+
+          <article class="card module-card reveal">
+            <div class="module-number">06</div>
+            <h3 data-en="Investor-Ready Report" data-de="Investorentauglicher Report">Investor-Ready Report</h3>
+            <p data-en="Turns technical scenarios into a clear decision sheet for customers, banks and investors." data-de="Verwandelt technische Szenarien in eine klare Entscheidungsgrundlage für Kunden, Banken und Investoren.">
+              Turns technical scenarios into a clear decision sheet for customers, banks and investors.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="policy">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow" data-en="Policy & Market Pull" data-de="Politik & Marktnachfrage">Policy & Market Pull</div>
+          <h2
+            data-en="Europe is creating demand for renewable hydrogen. The deployment gap is the opportunity."
+            data-de="Europa schafft Nachfrage nach erneuerbarem Wasserstoff. Die Umsetzungslücke ist die Chance."
+          >
+            Europe is creating demand for renewable hydrogen. The deployment gap is the opportunity.
+          </h2>
+          <p
+            data-en="H2Jau-Energi helps customers and investors translate regulation, infrastructure gaps and site-level renewable potential into a practical hydrogen storage, fuel-cell backup and surplus offtake strategy."
+            data-de="H2Jau-Energi hilft Kunden und Investoren, Regulierung, Infrastrukturlücken und standortspezifisches erneuerbares Potenzial in eine praktische Strategie für Wasserstoffspeicherung, Brennstoffzellen-Backup und Überschussabnahme zu übersetzen."
+          >
+            H2Jau-Energi helps customers and investors translate regulation, infrastructure gaps and site-level renewable potential into a practical hydrogen storage, fuel-cell backup and surplus offtake strategy.
+          </p>
+        </div>
+
+        <div class="policy-grid">
+          <article class="card policy-card reveal">
+            <span class="policy-tag">RED III</span>
+            <strong>42% → 60%</strong>
+            <h3 data-en="Industry RFNBO target" data-de="RFNBO-Ziel in der Industrie">Industry RFNBO target</h3>
+            <p data-en="By 2030, RFNBOs are expected to cover at least 42% of industrial hydrogen use, rising to 60% in 2035." data-de="Bis 2030 sollen RFNBOs mindestens 42% des industriellen Wasserstoffeinsatzes abdecken, bis 2035 steigt der Wert auf 60%.">
+              By 2030, RFNBOs are expected to cover at least 42% of industrial hydrogen use, rising to 60% in 2035.
+            </p>
+          </article>
+
+          <article class="card policy-card reveal">
+            <span class="policy-tag">ReFuelEU</span>
+            <strong>2025 → 2050</strong>
+            <h3 data-en="Aviation fuel transition" data-de="Transformation im Luftverkehr">Aviation fuel transition</h3>
+            <p data-en="SAF obligations start at 2% in 2025 and rise to 70% in 2050, with synthetic aviation fuel shares starting in 2030." data-de="SAF-Pflichten starten 2025 mit 2% und steigen bis 2050 auf 70%; synthetische Kraftstoffanteile beginnen ab 2030.">
+              SAF obligations start at 2% in 2025 and rise to 70% in 2050, with synthetic aviation fuel shares starting in 2030.
+            </p>
+          </article>
+
+          <article class="card policy-card reveal">
+            <span class="policy-tag">FuelEU</span>
+            <strong>-80%</strong>
+            <h3 data-en="Maritime intensity reduction" data-de="Reduktion der maritimen Intensität">Maritime intensity reduction</h3>
+            <p data-en="FuelEU Maritime reduces allowed greenhouse-gas intensity stepwise from 2025 to 2050 and includes RFNBO-related mechanisms." data-de="FuelEU Maritime senkt die zulässige Treibhausgasintensität schrittweise von 2025 bis 2050 und enthält RFNBO-bezogene Mechanismen.">
+              FuelEU Maritime reduces allowed greenhouse-gas intensity stepwise from 2025 to 2050 and includes RFNBO-related mechanisms.
+            </p>
+          </article>
+
+          <article class="card policy-card reveal">
+            <span class="policy-tag">EHO</span>
+            <strong>600 MW</strong>
+            <h3 data-en="Deployment still needs scale" data-de="Der Ausbau muss skalieren">Deployment still needs scale</h3>
+            <p data-en="EU operational electrolysis capacity was around 600 MW in 2025, still far below the 2030 scale required." data-de="Die operative Elektrolysekapazität der EU lag 2025 bei rund 600 MW und damit weit unter dem für 2030 benötigten Niveau.">
+              EU operational electrolysis capacity was around 600 MW in 2025, still far below the 2030 scale required.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="gap">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow" data-en="Map & Gap Analysis" data-de="Karte & Lückenanalyse">Map & Gap Analysis</div>
+          <h2
+            data-en="Europe has the targets. The missing piece is investable site-level execution."
+            data-de="Europa hat die Ziele. Das fehlende Stück ist investierbare Umsetzung auf Standortebene."
+          >
+            Europe has the targets. The missing piece is investable site-level execution.
+          </h2>
+          <p
+            data-en="These visuals show why H2Jau-Energi matters: the policy targets are large, current deployment is still small, and customers need practical tools to decide what to build."
+            data-de="Diese Visuals zeigen, warum H2Jau-Energi relevant ist: Die politischen Ziele sind groß, der heutige Ausbau ist noch klein, und Kunden brauchen praktische Tools, um Investitionen zu entscheiden."
+          >
+            These visuals show why H2Jau-Energi matters: the policy targets are large, current deployment is still small, and customers need practical tools to decide what to build.
+          </p>
+        </div>
+
+        <div class="market-grid">
+          <div class="card map-card reveal">
+            <div class="eyebrow" data-en="Interactive hydrogen map" data-de="Interaktive Wasserstoffkarte">Interactive hydrogen map</div>
+            <h2
+              data-en="A network is emerging, but local decision tools are still missing."
+              data-de="Ein Netzwerk entsteht, aber lokale Entscheidungstools fehlen noch."
+            >
+              A network is emerging, but local decision tools are still missing.
+            </h2>
+            <p
+              data-en="Click the country markers to see why regional hydrogen corridors, industrial clusters and offtakers matter for site-level business cases."
+              data-de="Klicke auf die Länderpunkte, um zu sehen, warum regionale Wasserstoffkorridore, Industriecluster und Abnehmer für Standort-Business-Cases wichtig sind."
+            >
+              Click the country markers to see why regional hydrogen corridors, industrial clusters and offtakers matter for site-level business cases.
+            </p>
+
+            <div class="map-visual" aria-label="Stylised interactive European hydrogen infrastructure map">
+              <svg class="europe-map" viewBox="0 0 720 430" role="img" aria-label="Stylised Europe map">
+                <defs>
+                  <linearGradient id="pipelineGradient" x1="0" x2="1" y1="0" y2="0">
+                    <stop offset="0%" stop-color="#64a8ff" />
+                    <stop offset="55%" stop-color="#24f2b6" />
+                    <stop offset="100%" stop-color="#facc15" />
+                  </linearGradient>
+                </defs>
+
+                <path class="map-land" d="M142 270 C112 235,126 188,166 170 C204 153,230 119,275 123 C314 127,336 102,380 119 C414 132,453 117,493 135 C533 154,559 190,575 223 C596 268,564 309,518 307 C488 305,462 327,423 321 C381 315,358 337,315 325 C278 315,254 283,220 292 C186 301,164 293,142 270 Z" />
+                <path class="map-land" d="M300 103 C286 72,305 43,339 37 C373 31,397 51,402 84 C381 92,353 98,326 113 C316 118,306 116,300 103 Z" />
+                <path class="map-land" d="M238 331 C265 334,283 358,274 386 C245 384,221 369,205 346 C211 337,224 331,238 331 Z" />
+                <path class="map-land" d="M585 135 C611 133,638 150,648 174 C628 186,600 181,581 161 C575 151,575 139,585 135 Z" />
+                <path class="map-sea-line" d="M120 260 C198 185,287 183,360 211 C438 242,506 236,590 185" />
+                <path class="map-pipeline-path" d="M194 246 C260 212,316 215,374 235 C435 256,489 250,555 217" />
+                <path class="map-pipeline-path" d="M282 310 C322 276,371 262,426 267 C475 272,505 292,541 318" />
+              </svg>
+
+              <button class="map-dot dot-de" data-map-en="Germany: 10 GW electrolysis target by 2030 and strong industrial demand make it a key market for site-level hydrogen optimisation." data-map-de="Deutschland: 10 GW Elektrolyseziel bis 2030 und starke industrielle Nachfrage machen es zu einem Schlüsselmarkt für Standort-Wasserstoffoptimierung.">DE</button>
+              <button class="map-dot dot-nl" data-map-en="Netherlands: port infrastructure and hydrogen corridors are relevant for future hydrogen imports and offtake." data-map-de="Niederlande: Hafeninfrastruktur und Wasserstoffkorridore sind relevant für zukünftige Wasserstoffimporte und Abnahme.">NL</button>
+              <button class="map-dot dot-fr" data-map-en="France: industrial clusters and low-carbon power can support hydrogen deployment and offtake." data-map-de="Frankreich: Industriecluster und CO2-armer Strom können Wasserstoffausbau und Abnahme unterstützen.">FR</button>
+              <button class="map-dot dot-es" data-map-en="Spain: strong renewable resources create export-oriented hydrogen opportunities." data-map-de="Spanien: Starke erneuerbare Ressourcen schaffen exportorientierte Wasserstoffchancen.">ES</button>
+              <button class="map-dot dot-dk" data-map-en="Denmark: wind resources and North Sea infrastructure strengthen renewable hydrogen potential." data-map-de="Dänemark: Windressourcen und Nordsee-Infrastruktur stärken das Potenzial für erneuerbaren Wasserstoff.">DK</button>
+              <button class="map-dot dot-pl" data-map-en="Poland: industrial demand and transition needs can create future hydrogen demand centres." data-map-de="Polen: Industrielle Nachfrage und Transformationsbedarf können zukünftige Wasserstoff-Nachfragezentren schaffen.">PL</button>
+
+              <div
+                class="map-caption"
+                id="mapCaption"
+                data-en="Illustrative map based on official EU hydrogen map categories: production plants, pipelines, refuelling stations, storage, demand and infrastructure projects."
+                data-de="Illustrative Karte basierend auf offiziellen EU-Wasserstoffkartenkategorien: Produktion, Pipelines, Tankstellen, Speicher, Nachfrage und Infrastrukturprojekte."
+              >
+                Illustrative map based on official EU hydrogen map categories: production plants, pipelines, refuelling stations, storage, demand and infrastructure projects.
+              </div>
+            </div>
+
+            <p
+              class="source-note"
+              data-en="Use the official European Hydrogen Observatory Geomap and Hydrogen Infrastructure Map for verified project locations before final submission."
+              data-de="Nutze die offizielle European Hydrogen Observatory Geomap und Hydrogen Infrastructure Map für verifizierte Projektstandorte vor der finalen Abgabe."
+            >
+              Use the official European Hydrogen Observatory Geomap and Hydrogen Infrastructure Map for verified project locations before final submission.
+            </p>
+          </div>
+
+          <div class="card reveal">
+            <div class="eyebrow" data-en="European target path" data-de="Europäischer Zielpfad">European target path</div>
+            <h2 data-en="From policy pressure to investable hydrogen projects." data-de="Von politischem Druck zu investierbaren Wasserstoffprojekten.">
+              From policy pressure to investable hydrogen projects.
+            </h2>
+            <p
+              data-en="The regulation does not mean every company must immediately buy green hydrogen. It means that specific sectors and supply chains are increasingly pushed toward renewable fuels, RFNBOs and credible decarbonisation pathways."
+              data-de="Die Regulierung bedeutet nicht, dass jedes Unternehmen sofort grünen Wasserstoff kaufen muss. Sie zeigt aber, dass bestimmte Sektoren und Lieferketten zunehmend in Richtung erneuerbare Kraftstoffe, RFNBOs und glaubwürdige Dekarbonisierungspfade gedrückt werden."
+            >
+              The regulation does not mean every company must immediately buy green hydrogen. It means that specific sectors and supply chains are increasingly pushed toward renewable fuels, RFNBOs and credible decarbonisation pathways.
+            </p>
+
+            <div class="target-track">
+              <div class="target-row">
+                <span class="target-year">2025</span>
+                <p data-en="FuelEU Maritime starts; ReFuelEU Aviation SAF supply obligations begin." data-de="FuelEU Maritime startet; ReFuelEU Aviation SAF-Lieferpflichten beginnen.">
+                  FuelEU Maritime starts; ReFuelEU Aviation SAF supply obligations begin.
+                </p>
+              </div>
+
+              <div class="target-row">
+                <span class="target-year">2030</span>
+                <p data-en="EU renewables target reaches at least 42.5%; Germany targets at least 10 GW electrolysis capacity." data-de="Das EU-Erneuerbarenziel erreicht mindestens 42,5%; Deutschland zielt auf mindestens 10 GW Elektrolyseleistung.">
+                  EU renewables target reaches at least 42.5%; Germany targets at least 10 GW electrolysis capacity.
+                </p>
+              </div>
+
+              <div class="target-row">
+                <span class="target-year">2035</span>
+                <p data-en="Industrial RFNBO hydrogen target rises to 60%; synthetic fuel and maritime requirements tighten." data-de="Das industrielle RFNBO-Wasserstoffziel steigt auf 60%; synthetische Kraftstoff- und maritime Anforderungen verschärfen sich.">
+                  Industrial RFNBO hydrogen target rises to 60%; synthetic fuel and maritime requirements tighten.
+                </p>
+              </div>
+
+              <div class="target-row">
+                <span class="target-year">2050</span>
+                <p data-en="EU climate neutrality target and deep fuel transition in aviation and maritime." data-de="EU-Klimaneutralitätsziel und tiefgreifende Kraftstofftransformation in Luftfahrt und Schifffahrt.">
+                  EU climate neutrality target and deep fuel transition in aviation and maritime.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gap-layout">
+          <div class="card reveal">
+            <div class="eyebrow" data-en="EU electrolysis gap" data-de="EU-Elektrolyse-Lücke">EU electrolysis gap</div>
+            <h2 data-en="Current deployment is only a small fraction of the 2030 benchmark." data-de="Der heutige Ausbau ist nur ein kleiner Bruchteil des 2030-Benchmarks.">
+              Current deployment is only a small fraction of the 2030 benchmark.
+            </h2>
+            <p data-en="The progress bars compare current and near-term EU electrolysis capacity with the 40 GW strategic benchmark for 2030." data-de="Die Fortschrittsbalken vergleichen aktuelle und kurzfristige EU-Elektrolysekapazität mit dem strategischen 40-GW-Benchmark für 2030.">
+              The progress bars compare current and near-term EU electrolysis capacity with the 40 GW strategic benchmark for 2030.
+            </p>
+
+            <div class="progress-comparison">
+              <div class="comparison-row">
+                <div class="comparison-label" data-en="Status quo 2025" data-de="Status quo 2025">Status quo 2025</div>
+                <div class="comparison-track">
+                  <div class="comparison-fill tiny" style="--w:1.5%">1.5%</div>
+                </div>
+              </div>
+
+              <div class="comparison-row">
+                <div class="comparison-label" data-en="Under development" data-de="In Entwicklung">Under development</div>
+                <div class="comparison-track">
+                  <div class="comparison-fill tiny" style="--w:7.5%">7.5%</div>
+                </div>
+              </div>
+
+              <div class="comparison-row">
+                <div class="comparison-label" data-en="2030 benchmark" data-de="2030-Benchmark">2030 benchmark</div>
+                <div class="comparison-track">
+                  <div class="comparison-fill" style="--w:100%">40 GW</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="gap-number">
+              <div class="mini-stat">
+                <strong>0.6 GW</strong>
+                <span data-en="operational EU capacity" data-de="operative EU-Kapazität">operational EU capacity</span>
+              </div>
+              <div class="mini-stat">
+                <strong>≈3 GW</strong>
+                <span data-en="under development" data-de="in Entwicklung">under development</span>
+              </div>
+              <div class="mini-stat">
+                <strong>39.4 GW</strong>
+                <span data-en="gap vs. 40 GW" data-de="Lücke ggü. 40 GW">gap vs. 40 GW</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card reveal">
+            <div class="eyebrow" data-en="Germany and renewables gap" data-de="Deutschland- und Erneuerbaren-Lücke">Germany and renewables gap</div>
+            <h2 data-en="Germany also needs a steep scale-up." data-de="Auch Deutschland braucht einen steilen Hochlauf.">
+              Germany also needs a steep scale-up.
+            </h2>
+            <p data-en="Germany targets 10 GW electrolysis capacity by 2030. Current installed capacity remains far below that target, making bankable local projects important." data-de="Deutschland zielt auf 10 GW Elektrolyseleistung bis 2030. Die heutige installierte Kapazität liegt noch weit darunter, weshalb bankfähige lokale Projekte wichtig sind.">
+              Germany targets 10 GW electrolysis capacity by 2030. Current installed capacity remains far below that target, making bankable local projects important.
+            </p>
+
+            <div class="progress-comparison">
+              <div class="comparison-row">
+                <div class="comparison-label" data-en="Germany status quo" data-de="Deutschland Status quo">Germany status quo</div>
+                <div class="comparison-track">
+                  <div class="comparison-fill tiny" style="--w:1.8%">1.8%</div>
+                </div>
+              </div>
+
+              <div class="comparison-row">
+                <div class="comparison-label" data-en="Germany 2030 target" data-de="Deutschland Ziel 2030">Germany 2030 target</div>
+                <div class="comparison-track">
+                  <div class="comparison-fill" style="--w:100%">10 GW</div>
+                </div>
+              </div>
+
+              <div class="comparison-row">
+                <div class="comparison-label" data-en="EU renewables 2024" data-de="EU Erneuerbare 2024">EU renewables 2024</div>
+                <div class="comparison-track">
+                  <div class="comparison-fill" style="--w:59.3%">25.2%</div>
+                </div>
+              </div>
+
+              <div class="comparison-row">
+                <div class="comparison-label" data-en="EU target 2030" data-de="EU Ziel 2030">EU target 2030</div>
+                <div class="comparison-track">
+                  <div class="comparison-fill" style="--w:100%">42.5%</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="comparison-note">
+              <p data-en="Germany status quo uses approximately 0.18 GW compared with the 10 GW 2030 target. Replace this value with your final chosen source if your report uses a different dataset." data-de="Deutschland Status quo nutzt ungefähr 0,18 GW im Vergleich zum 10-GW-Ziel für 2030. Ersetze diesen Wert durch deine finale Quelle, falls der Bericht einen anderen Datensatz nutzt.">
+                Germany status quo uses approximately 0.18 GW compared with the 10 GW 2030 target. Replace this value with your final chosen source if your report uses a different dataset.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="impact-banner reveal">
+          <div>
+            <h2 data-en="Your site can become part of Europe’s hydrogen ramp-up." data-de="Ihr Standort kann Teil des europäischen Wasserstoffhochlaufs werden.">
+              Your site can become part of Europe’s hydrogen ramp-up.
+            </h2>
+            <p data-en="For customers, this means lower energy risk, higher renewable self-use and resilience through hydrogen backup. For investors, it means a clearer path from policy pressure to bankable clean-energy infrastructure." data-de="Für Kunden bedeutet das geringeres Energierisiko, höhere Nutzung erneuerbarer Energie und Resilienz durch Wasserstoff-Backup. Für Investoren entsteht ein klarerer Weg von politischem Druck zu bankfähiger Clean-Energy-Infrastruktur.">
+              For customers, this means lower energy risk, higher renewable self-use and resilience through hydrogen backup. For investors, it means a clearer path from policy pressure to bankable clean-energy infrastructure.
+            </p>
+          </div>
+          <a href="#calculator" class="btn btn-primary" data-en="Estimate your hydrogen potential" data-de="Wasserstoffpotenzial schätzen">Estimate your hydrogen potential</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="value">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow" data-en="Customer & investor value" data-de="Kunden- & Investorennutzen">Customer & investor value</div>
+          <h2 data-en="Different stakeholders. One clear decision platform." data-de="Unterschiedliche Stakeholder. Eine klare Entscheidungsplattform.">
+            Different stakeholders. One clear decision platform.
+          </h2>
+        </div>
+
+        <div class="value-grid">
+          <article class="card value-card reveal">
+            <h2 data-en="For customers" data-de="Für Kunden">For customers</h2>
+            <ul>
+              <li data-en="Reduce grid dependency and energy cost exposure." data-de="Netzabhängigkeit und Energiekostenrisiko reduzieren.">Reduce grid dependency and energy cost exposure.</li>
+              <li data-en="Use renewable electricity more intelligently on-site." data-de="Erneuerbaren Strom am Standort intelligenter nutzen.">Use renewable electricity more intelligently on-site.</li>
+              <li data-en="Create backup power through hydrogen and fuel cells." data-de="Backup-Strom durch Wasserstoff und Brennstoffzellen schaffen.">Create backup power through hydrogen and fuel cells.</li>
+              <li data-en="Understand CO2 savings and investment trade-offs." data-de="CO2-Einsparungen und Investitionsabwägungen verstehen.">Understand CO2 savings and investment trade-offs.</li>
+            </ul>
+          </article>
+
+          <article class="card value-card reveal">
+            <h2 data-en="For investors" data-de="Für Investoren">For investors</h2>
+            <ul>
+              <li data-en="Policy-driven market with visible deployment gap." data-de="Politisch getriebener Markt mit sichtbarer Umsetzungslücke.">Policy-driven market with visible deployment gap.</li>
+              <li data-en="Scalable software-supported analysis model." data-de="Skalierbares softwaregestütztes Analysemodell.">Scalable software-supported analysis model.</li>
+              <li data-en="Repeatable site evaluation for portfolios." data-de="Wiederholbare Standortbewertung für Portfolios.">Repeatable site evaluation for portfolios.</li>
+              <li data-en="Cleaner path from technical concept to bankable case." data-de="Klarerer Weg vom technischen Konzept zum bankfähigen Case.">Cleaner path from technical concept to bankable case.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculator">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 data-en="Interactive site potential quick check." data-de="Interaktiver Standort-Quick-Check.">
+            Interactive site potential quick check.
+          </h2>
+          <p data-en="This simplified calculator estimates PV generation, avoided electricity cost, CO2 savings and potential green hydrogen output. It is a demo, not a final engineering design." data-de="Dieser vereinfachte Rechner schätzt PV-Erzeugung, vermiedene Stromkosten, CO2-Einsparung und potenzielle grüne Wasserstoffmenge. Er ist eine Demo und kein finales Engineering-Design.">
+            This simplified calculator estimates PV generation, avoided electricity cost, CO2 savings and potential green hydrogen output. It is a demo, not a final engineering design.
+          </p>
+        </div>
+
+        <div class="calculator">
+          <div class="card reveal">
+            <h3 data-en="Enter example site data" data-de="Beispieldaten eingeben">Enter example site data</h3>
+            <div class="calc-form">
+              <label>
+                <span data-en="Available PV area in m²" data-de="Verfügbare PV-Fläche in m²">Available PV area in m²</span>
+                <input id="area" type="number" value="24000" min="0" />
+              </label>
+
+              <label>
+                <span data-en="Annual electricity demand in MWh" data-de="Jährlicher Strombedarf in MWh">Annual electricity demand in MWh</span>
+                <input id="demand" type="number" value="3000" min="0" />
+              </label>
+
+              <label>
+                <span data-en="Avoided grid electricity price in €/kWh" data-de="Vermiedener Netzstrompreis in €/kWh">Avoided grid electricity price in €/kWh</span>
+                <input id="price" type="number" value="0.22" min="0" step="0.01" />
+              </label>
+
+              <label>
+                <span data-en="Specific PV yield in kWh/kWp/year" data-de="Spezifischer PV-Ertrag in kWh/kWp/Jahr">Specific PV yield in kWh/kWp/year</span>
+                <input id="yield" type="number" value="1050" min="0" />
+              </label>
+
+              <label>
+                <span data-en="Grid CO2 factor in kg CO2/kWh" data-de="Netz-CO2-Faktor in kg CO2/kWh">Grid CO2 factor in kg CO2/kWh</span>
+                <input id="co2factor" type="number" value="0.344" min="0" step="0.001" />
+              </label>
+
+              <label>
+                <span data-en="Electrolyser electricity use in kWh/kg H2" data-de="Elektrolyse-Strombedarf in kWh/kg H2">Electrolyser electricity use in kWh/kg H2</span>
+                <input id="h2energy" type="number" value="52" min="1" step="0.1" />
+              </label>
+
+              <button class="btn btn-primary" onclick="calculatePotential()" data-en="Calculate rough potential" data-de="Potenzial grob berechnen">
+                Calculate rough potential
+              </button>
+            </div>
+          </div>
+
+          <div class="card result-box reveal">
+            <h3 data-en="Estimated quick-check output" data-de="Geschätzter Quick-Check-Output">Estimated quick-check output</h3>
+
+            <div class="result-item"><span data-en="Approx. PV capacity" data-de="Ca. PV-Leistung">Approx. PV capacity</span><b id="pvCap">0 kWp</b></div>
+            <div class="result-item"><span data-en="Approx. annual PV generation" data-de="Ca. jährliche PV-Erzeugung">Approx. annual PV generation</span><b id="pvGen">0 MWh/year</b></div>
+            <div class="result-item"><span data-en="Estimated useful self-consumed energy" data-de="Geschätzter nutzbarer Eigenverbrauch">Estimated useful self-consumed energy</span><b id="selfUse">0 MWh/year</b></div>
+            <div class="result-item"><span data-en="Estimated renewable surplus" data-de="Geschätzter erneuerbarer Überschuss">Estimated renewable surplus</span><b id="surplus">0 MWh/year</b></div>
+            <div class="result-item"><span data-en="Indicative self-consumption value" data-de="Indikativer Eigenverbrauchswert">Indicative self-consumption value</span><b id="value">€0/year</b></div>
+            <div class="result-item"><span data-en="Estimated CO2 savings from avoided grid electricity" data-de="Geschätzte CO2-Einsparung durch vermiedenen Netzstrom">Estimated CO2 savings from avoided grid electricity</span><b id="co2Saved">0 t CO2/year</b></div>
+            <div class="result-item"><span data-en="Theoretical hydrogen if all PV electricity is used" data-de="Theoretischer Wasserstoff, wenn gesamte PV-Erzeugung genutzt wird">Theoretical hydrogen if all PV electricity is used</span><b id="h2All">0 kg H2/year</b></div>
+            <div class="result-item"><span data-en="Potential hydrogen from estimated surplus electricity" data-de="Potenzieller Wasserstoff aus geschätztem Überschussstrom">Potential hydrogen from estimated surplus electricity</span><b id="h2Surplus">0 kg H2/year</b></div>
+            <div class="result-item"><span data-en="Suggested next step" data-de="Empfohlener nächster Schritt">Suggested next step</span><b id="nextStep">Run full scenario analysis</b></div>
+
+            <div class="formula-box">
+              <p data-en="Transparent formula assumptions:" data-de="Transparente Formelannahmen:">Transparent formula assumptions:</p>
+              <code id="formulaText">CO2 saved = useful renewable kWh × grid CO2 factor. Hydrogen kg = renewable kWh ÷ electrolyser kWh/kg H2.</code>
+              <p class="source-note" data-en="Default CO2 factor uses 0.344 kg CO2/kWh as an editable grid assumption. Default hydrogen conversion uses 52 kWh/kg H2 as an editable electrolyser assumption." data-de="Standard-CO2-Faktor: 0,344 kg CO2/kWh als editierbare Netzannahme. Standard-Wasserstoffumrechnung: 52 kWh/kg H2 als editierbare Elektrolyseannahme.">
+                Default CO2 factor uses 0.344 kg CO2/kWh as an editable grid assumption. Default hydrogen conversion uses 52 kWh/kg H2 as an editable electrolyser assumption.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 data-en="Strategic growth path." data-de="Strategischer Wachstumspfad.">Strategic growth path.</h2>
+          <p data-en="The project develops from a site analysis into a software prototype, then into pilot validation and scalable commercial rollout." data-de="Das Projekt entwickelt sich von einer Standortanalyse über einen Software-Prototyp zur Pilotvalidierung und skalierbaren Markteinführung.">
+            The project develops from a site analysis into a software prototype, then into pilot validation and scalable commercial rollout.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-row reveal">
+            <span class="phase">Phase 1</span>
+            <div>
+              <h3 data-en="Analysis" data-de="Analyse">Analysis</h3>
+              <p data-en="Build data basis: load profiles, generation profiles, market assumptions and first scenarios." data-de="Datenbasis aufbauen: Lastprofile, Erzeugungsprofile, Marktannahmen und erste Szenarien.">
+                Build data basis: load profiles, generation profiles, market assumptions and first scenarios.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-row reveal">
+            <span class="phase">Phase 2</span>
+            <div>
+              <h3 data-en="MVP" data-de="MVP">MVP</h3>
+              <p data-en="Create a software prototype with optimisation logic and repeatable site evaluation." data-de="Software-Prototyp mit Optimierungslogik und wiederholbarer Standortbewertung erstellen.">
+                Create a software prototype with optimisation logic and repeatable site evaluation.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-row reveal">
+            <span class="phase">Phase 3</span>
+            <div>
+              <h3 data-en="Pilot case" data-de="Pilotfall">Pilot case</h3>
+              <p data-en="Validate the approach using Ingolstadt Village as an illustrative reference case." data-de="Ansatz mit Ingolstadt Village als illustrativem Referenzfall validieren.">
+                Validate the approach using Ingolstadt Village as an illustrative reference case.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-row reveal">
+            <span class="phase">Phase 4</span>
+            <div>
+              <h3 data-en="Market entry" data-de="Markteintritt">Market entry</h3>
+              <p data-en="Win first pilot customers through consulting, feasibility studies and partner networks." data-de="Erste Pilotkunden über Beratung, Machbarkeitsstudien und Partnernetzwerke gewinnen.">
+                Win first pilot customers through consulting, feasibility studies and partner networks.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-row reveal">
+            <span class="phase">Phase 5</span>
+            <div>
+              <h3 data-en="SaaS scaling" data-de="SaaS-Skalierung">SaaS scaling</h3>
+              <p data-en="Standardise analysis modules for multi-site customers and recurring software revenue." data-de="Analysemodule für Multi-Standort-Kunden und wiederkehrende Softwareerlöse standardisieren.">
+                Standardise analysis modules for multi-site customers and recurring software revenue.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sources">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow" data-en="Source basis" data-de="Quellenbasis">Source basis</div>
+          <h2 data-en="Official references behind the policy and gap section." data-de="Offizielle Referenzen hinter der Politik- und Lückenanalyse.">Official references behind the policy and gap section.</h2>
+          <p data-en="Keep these source cards in the prototype. For the final report, convert them into formal references in your bibliography." data-de="Behalte diese Quellenkarten im Prototyp. Für den finalen Bericht kannst du sie in formale Literaturangaben übertragen.">
+            Keep these source cards in the prototype. For the final report, convert them into formal references in your bibliography.
+          </p>
+        </div>
+
+        <div class="source-grid">
+          <article class="card source-card reveal">
+            <h3>European Commission</h3>
+            <p data-en="Renewable Energy Directive and RFNBO uptake targets for industry and transport." data-de="Renewable Energy Directive und RFNBO-Ziele für Industrie und Verkehr.">
+              Renewable Energy Directive and RFNBO uptake targets for industry and transport.
+            </p>
+            <a href="https://energy.ec.europa.eu/topics/renewable-energy/renewable-energy-directive-targets-and-rules/renewable-energy-directive_en" target="_blank" rel="noreferrer">
+              RED III source
+            </a>
+          </article>
+
+          <article class="card source-card reveal">
+            <h3>European Hydrogen Observatory</h3>
+            <p data-en="Hydrogen market statistics, maps, production, pipelines and deployment data." data-de="Wasserstoffmarkt-Statistiken, Karten, Produktion, Pipelines und Deployment-Daten.">
+              Hydrogen market statistics, maps, production, pipelines and deployment data.
+            </p>
+            <a href="https://observatory.clean-hydrogen.europa.eu/" target="_blank" rel="noreferrer">
+              EHO source
+            </a>
+          </article>
+
+          <article class="card source-card reveal">
+            <h3>EUR-Lex</h3>
+            <p data-en="ReFuelEU Aviation and FuelEU Maritime legal framework and obligations." data-de="ReFuelEU Aviation und FuelEU Maritime Rechtsrahmen und Verpflichtungen.">
+              ReFuelEU Aviation and FuelEU Maritime legal framework and obligations.
+            </p>
+            <a href="https://eur-lex.europa.eu/" target="_blank" rel="noreferrer">
+              EUR-Lex source
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="cta reveal">
+          <h2
+            data-en="Ready to test your site potential?"
+            data-de="Bereit, Ihr Standortpotenzial zu testen?"
+          >
+            Ready to test your site potential?
+          </h2>
+
+          <p
+            data-en="Upload your load profile, site area and energy cost assumptions. H2Jau-Energi turns them into an investment-ready clean-energy pathway."
+            data-de="Laden Sie Ihr Lastprofil, Ihre Standortfläche und Energiekostenannahmen hoch. H2Jau-Energi verwandelt sie in einen investitionsreifen Clean-Energy-Pfad."
+          >
+            Upload your load profile, site area and energy cost assumptions. H2Jau-Energi turns them into an investment-ready clean-energy pathway.
+          </p>
+
+          <div class="hero-actions" style="justify-content:center">
+            <a href="mailto:mub1757@thi.de?subject=H2Jau-Energi%20Investor%20or%20Customer%20Inquiry" class="btn btn-primary" data-en="Request a feasibility case" data-de="Machbarkeitsfall anfragen">Request a feasibility case</a>
+            <a href="#calculator" class="btn btn-secondary" data-en="Try quick check" data-de="Quick Check testen">Try quick check</a>
+            <a href="#gap" class="btn btn-secondary" data-en="Explore hydrogen gap" data-de="Wasserstofflücke ansehen">Explore hydrogen gap</a>
+          </div>
+
+          <form class="contact-form" id="contactForm">
+            <input id="name" type="text" data-en-placeholder="Your name" data-de-placeholder="Ihr Name" placeholder="Your name" required />
+            <input id="email" type="email" data-en-placeholder="Your email" data-de-placeholder="Ihre E-Mail" placeholder="Your email" required />
+            <textarea id="message" data-en-placeholder="Tell us about your site, company, investment interest or partnership idea" data-de-placeholder="Erzählen Sie uns von Ihrem Standort, Unternehmen, Investitionsinteresse oder Ihrer Partnerschaftsidee" placeholder="Tell us about your site, company, investment interest or partnership idea" required></textarea>
+            <button class="btn btn-primary" type="submit" data-en="Prepare email message" data-de="E-Mail vorbereiten">Prepare email message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 H2Jau-Energi · Clean Energy Decision Intelligence · Start-Up Project SS2026</p>
+    </div>
+  </footer>
+
+  <script>
+    let currentLanguage = "en";
+
+    const languageLabels = {
+      en: {
+        low: "Low",
+        medium: "Medium",
+        high: "High",
+        small: "Small",
+        large: "Large",
+        backupFirst: "Backup first",
+        surplusSales: "Surplus sales"
+      },
+      de: {
+        low: "Niedrig",
+        medium: "Mittel",
+        high: "Hoch",
+        small: "Klein",
+        large: "Groß",
+        backupFirst: "Backup zuerst",
+        surplusSales: "Überschussverkauf"
+      }
+    };
+
+    function applyLanguage(language) {
+      currentLanguage = language;
+      document.documentElement.lang = language;
+      document.getElementById("languageToggle").textContent = language === "en" ? "DE" : "EN";
+
+      document.querySelectorAll("[data-en]").forEach(element => {
+        const value = language === "de" ? element.dataset.de : element.dataset.en;
+        if (value !== undefined) element.textContent = value;
+      });
+
+      document.querySelectorAll("[data-en-html]").forEach(element => {
+        const value = language === "de" ? element.dataset.deHtml : element.dataset.enHtml;
+        if (value !== undefined) element.innerHTML = value;
+      });
+
+      document.querySelectorAll("[data-en-placeholder]").forEach(element => {
+        const value = language === "de" ? element.dataset.dePlaceholder : element.dataset.enPlaceholder;
+        if (value !== undefined) element.placeholder = value;
+      });
+
+      document.getElementById("formulaText").textContent =
+        language === "de"
+          ? "CO2-Einsparung = nutzbare erneuerbare kWh × Netz-CO2-Faktor. Wasserstoff kg = erneuerbare kWh ÷ Elektrolyse-kWh/kg H2."
+          : "CO2 saved = useful renewable kWh × grid CO2 factor. Hydrogen kg = renewable kWh ÷ electrolyser kWh/kg H2.";
+
+      try {
+        localStorage.setItem("h2jauLanguage", language);
+      } catch (error) {}
+
+      updateSimulator();
+      calculatePotential();
+    }
+
+    document.getElementById("languageToggle").addEventListener("click", () => {
+      applyLanguage(currentLanguage === "en" ? "de" : "en");
+    });
+
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme") || "dark";
+      const next = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      document.getElementById("themeToggle").textContent = next === "dark" ? "☾" : "☀";
+      try {
+        localStorage.setItem("h2jauTheme", next);
+      } catch (error) {}
+    });
+
+    document.getElementById("menuToggle").addEventListener("click", () => {
+      document.getElementById("mobileMenu").classList.toggle("open");
+    });
+
+    document.querySelectorAll(".mobile-menu a").forEach(link => {
+      link.addEventListener("click", () => {
+        document.getElementById("mobileMenu").classList.remove("open");
+      });
+    });
+
+    document.querySelectorAll(".map-dot").forEach(dot => {
+      dot.addEventListener("click", () => {
+        document.getElementById("mapCaption").textContent =
+          currentLanguage === "de" ? dot.dataset.mapDe : dot.dataset.mapEn;
+      });
+    });
+
+    document.querySelectorAll(".tilt-card").forEach(card => {
+      card.addEventListener("mousemove", event => {
+        const rect = card.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const rotateY = ((x / rect.width) - 0.5) * 12;
+        const rotateX = ((0.5 - y / rect.height)) * 12;
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "";
+      });
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("show");
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll(".reveal").forEach(item => observer.observe(item));
+
+    function levelName(value, type = "normal") {
+      const labels = languageLabels[currentLanguage];
+      if (type === "battery") {
+        if (value === 1) return labels.small;
+        if (value === 2) return labels.medium;
+        return labels.large;
+      }
+      if (value === 1) return labels.low;
+      if (value === 2) return labels.medium;
+      return labels.high;
+    }
+
+    function updateSimulator() {
+      const solar = Number(document.getElementById("solarSlider").value);
+      const demand = Number(document.getElementById("demandSlider").value);
+      const battery = Number(document.getElementById("batterySlider").value);
+      const h2Priority = Number(document.getElementById("h2PrioritySlider").value);
+
+      document.getElementById("solarValue").textContent = levelName(solar);
+      document.getElementById("demandValue").textContent = levelName(demand);
+      document.getElementById("batteryValue").textContent = levelName(battery, "battery");
+      document.getElementById("h2PriorityValue").textContent =
+        h2Priority === 1
+          ? languageLabels[currentLanguage].backupFirst
+          : languageLabels[currentLanguage].surplusSales;
+
+      let primary;
+      let hydrogen;
+      let business;
+
+      if (solar <= demand) {
+        primary = currentLanguage === "de"
+          ? "PV direkt nutzen. Batterie und H2 bleiben hauptsächlich Reserve."
+          : "Use PV directly. Battery and H2 remain mainly as reserve.";
+        hydrogen = currentLanguage === "de"
+          ? "Keine starke H2-Produktion, da wenig Überschuss vorhanden ist."
+          : "Limited H2 production because there is little surplus.";
+        business = currentLanguage === "de"
+          ? "Fokus: Eigenverbrauch, Netzkostenreduktion und Backup-Bewertung."
+          : "Focus: self-consumption, grid-cost reduction and backup evaluation.";
+      } else if (solar > demand && battery >= 2) {
+        primary = currentLanguage === "de"
+          ? "PV direkt nutzen, Batterie laden und kurzfristige Schwankungen abdecken."
+          : "Use PV directly, charge battery and cover short-term fluctuations.";
+        hydrogen = currentLanguage === "de"
+          ? "Verbleibenden Überschuss in H2 für Brennstoffzellen-Backup umwandeln."
+          : "Convert remaining surplus into H2 for fuel-cell backup.";
+        business = currentLanguage === "de"
+          ? "Guter Case für Batterie + H2-Backup + mögliche Überschussabnahme."
+          : "Good case for battery + H2 backup + optional surplus offtake.";
+      } else {
+        primary = currentLanguage === "de"
+          ? "PV direkt nutzen. Batterie ist begrenzt, daher Überschuss früh prüfen."
+          : "Use PV directly. Battery is limited, so surplus needs early assessment.";
+        hydrogen = currentLanguage === "de"
+          ? h2Priority === 1
+            ? "H2 zuerst für Standort-Backup speichern."
+            : "Mehr H2 kann für potenzielle Abnehmer bewertet werden."
+          : h2Priority === 1
+            ? "Store H2 first for on-site backup."
+            : "More H2 can be evaluated for potential offtakers.";
+        business = currentLanguage === "de"
+          ? "Perpetua prüft, ob größere Batterie, größerer Tank oder Offtaker-Pfad sinnvoll ist."
+          : "H2Jau-Energi checks whether larger battery, larger tank or offtaker route makes sense.";
+      }
+
+      document.getElementById("simPrimary").textContent = primary;
+      document.getElementById("simHydrogen").textContent = hydrogen;
+      document.getElementById("simBusiness").textContent = business;
+
+      const pvOutput = (3.4 + solar * 0.9).toFixed(1);
+      const batteryStatus = Math.min(92, 42 + battery * 15 + solar * 4);
+      const tankLevel = Math.min(88, 20 + solar * 13 + (h2Priority === 1 ? 7 : 0));
+      const co2 = Math.round(740 + solar * 220 + demand * 80);
+
+      document.getElementById("heroPv").textContent = `${pvOutput} MW`;
+      document.getElementById("heroBattery").textContent = `${batteryStatus}%`;
+      document.getElementById("heroTank").textContent = `${tankLevel}%`;
+      document.getElementById("heroCo2").textContent = `${co2.toLocaleString()} t`;
+      document.getElementById("dashboardRecommendation").textContent =
+        currentLanguage === "de"
+          ? "PV direkt nutzen, Batterie laden, restlichen Überschuss in H2 für Backup umwandeln."
+          : "Use PV directly, charge battery, convert remaining surplus to H2 for backup.";
+    }
+
+    ["solarSlider", "demandSlider", "batterySlider", "h2PrioritySlider"].forEach(id => {
+      document.getElementById(id).addEventListener("input", updateSimulator);
+    });
+
+    const formatNumber = (value, digits = 0) =>
+      value.toLocaleString(currentLanguage === "de" ? "de-DE" : "en-US", {
+        maximumFractionDigits: digits
+      });
+
+    function calculatePotential() {
+      const area = Number(document.getElementById("area").value || 0);
+      const demand = Number(document.getElementById("demand").value || 0);
+      const price = Number(document.getElementById("price").value || 0);
+      const specificYield = Number(document.getElementById("yield").value || 0);
+      const co2Factor = Number(document.getElementById("co2factor").value || 0);
+      const h2Energy = Number(document.getElementById("h2energy").value || 52);
+
+      const pvCapacityKwp = area / 5;
+      const pvGenerationMwh = pvCapacityKwp * specificYield / 1000;
+      const usefulMwh = Math.min(pvGenerationMwh * 0.7, demand);
+      const surplusMwh = Math.max(pvGenerationMwh - usefulMwh, 0);
+      const annualValue = usefulMwh * 1000 * price;
+      const co2SavedTonnes = usefulMwh * co2Factor;
+      const h2AllKg = h2Energy > 0 ? pvGenerationMwh * 1000 / h2Energy : 0;
+      const h2SurplusKg = h2Energy > 0 ? surplusMwh * 1000 / h2Energy : 0;
+
+      document.getElementById("pvCap").textContent = `${formatNumber(pvCapacityKwp)} kWp`;
+      document.getElementById("pvGen").textContent = `${formatNumber(pvGenerationMwh)} MWh/year`;
+      document.getElementById("selfUse").textContent = `${formatNumber(usefulMwh)} MWh/year`;
+      document.getElementById("surplus").textContent = `${formatNumber(surplusMwh)} MWh/year`;
+      document.getElementById("value").textContent = `€${formatNumber(annualValue)}/year`;
+      document.getElementById("co2Saved").textContent = `${formatNumber(co2SavedTonnes)} t CO2/year`;
+      document.getElementById("h2All").textContent = `${formatNumber(h2AllKg)} kg H2/year`;
+      document.getElementById("h2Surplus").textContent = `${formatNumber(h2SurplusKg)} kg H2/year`;
+
+      const next = document.getElementById("nextStep");
+      if (surplusMwh > demand * 0.25) {
+        next.textContent = currentLanguage === "de"
+          ? "Batterie + H2-Backup + Überschussabnahme detailliert prüfen"
+          : "Check battery + H2 backup + surplus offtake pathway";
+      } else if (pvGenerationMwh > demand * 0.45) {
+        next.textContent = currentLanguage === "de"
+          ? "Eigenverbrauch + Batterie optimieren"
+          : "Optimise self-consumption + battery";
+      } else {
+        next.textContent = currentLanguage === "de"
+          ? "PV-Erweiterung und H2-Backup-Pfad prüfen"
+          : "Assess PV expansion and H2 backup route";
+      }
+    }
+
+    ["area", "demand", "price", "yield", "co2factor", "h2energy"].forEach(id =>
+      document.getElementById(id).addEventListener("input", calculatePotential)
+    );
+
+    document.getElementById("contactForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
+      const subject = currentLanguage === "de"
+        ? "H2Jau-Energi Anfrage - Clean-Energy-Optimierung"
+        : "H2Jau-Energi inquiry - clean energy optimisation";
+      const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+      window.location.href =
+        "mailto:your.email@example.com?subject=" +
+        encodeURIComponent(subject) +
+        "&body=" +
+        encodeURIComponent(body);
+    });
+
+    function updateProgressBar() {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      document.getElementById("progressBar").style.width = progress + "%";
+    }
+
+    window.addEventListener("scroll", updateProgressBar);
+
+    try {
+      const savedTheme = localStorage.getItem("h2jauTheme");
+      if (savedTheme === "light" || savedTheme === "dark") {
+        document.documentElement.setAttribute("data-theme", savedTheme);
+        document.getElementById("themeToggle").textContent = savedTheme === "dark" ? "☾" : "☀";
+      }
+    } catch (error) {}
+
+    let savedLanguage = "en";
+    try {
+      const storedLanguage = localStorage.getItem("h2jauLanguage");
+      if (storedLanguage === "de" || storedLanguage === "en") {
+        savedLanguage = storedLanguage;
+      }
+    } catch (error) {}
+
+    applyLanguage(savedLanguage);
+    updateSimulator();
+    calculatePotential();
+    updateProgressBar();
+  </script>
+</body>
+</html>
