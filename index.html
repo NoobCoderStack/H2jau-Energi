@@ -3,31 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>H2Jau-Energi | Clean Energy Decision Intelligence</title>
-  <meta
-    name="description"
-    content="H2Jau-Energi is a software-powered consulting and optimisation concept for renewable energy, hydrogen storage, fuel-cell backup and surplus hydrogen offtake."
-  />
+  <title>H2Jau-Energi | Global Clean Energy Decision Intelligence</title>
+  <meta name="description" content="H2Jau-Energi is a global clean-energy decision platform for renewable energy, battery storage, green hydrogen, fuel-cell backup and surplus hydrogen offtake." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <style>
     :root {
       --bg: #050b10;
       --bg2: #07131d;
       --card: rgba(255,255,255,.075);
-      --card-strong: rgba(255,255,255,.12);
       --line: rgba(255,255,255,.14);
       --text: #f8fafc;
       --muted: #a8b7c5;
       --soft: #d8e7ef;
       --green: #24f2b6;
-      --green2: #00b884;
       --blue: #64a8ff;
       --cyan: #48dbfb;
       --yellow: #facc15;
@@ -42,7 +36,6 @@
       --bg: #f7fbff;
       --bg2: #edf7f5;
       --card: rgba(255,255,255,.88);
-      --card-strong: rgba(255,255,255,.98);
       --line: rgba(15,23,42,.13);
       --text: #08131c;
       --muted: #526170;
@@ -92,8 +85,7 @@
 
     button,
     input,
-    textarea,
-    select {
+    textarea {
       font: inherit;
     }
 
@@ -139,8 +131,6 @@
     .energy-particles span:nth-child(6) { left: 74%; top: 42%; animation-duration: 18s; animation-delay: -11s; background: var(--blue); }
     .energy-particles span:nth-child(7) { left: 88%; top: 84%; animation-duration: 24s; animation-delay: -4s; }
     .energy-particles span:nth-child(8) { left: 94%; top: 18%; animation-duration: 20s; animation-delay: -12s; background: var(--yellow); }
-    .energy-particles span:nth-child(9) { left: 12%; top: 12%; animation-duration: 26s; animation-delay: -8s; }
-    .energy-particles span:nth-child(10) { left: 39%; top: 58%; animation-duration: 23s; animation-delay: -6s; background: var(--blue); }
 
     @keyframes driftParticle {
       0% { transform: translate3d(0,40px,0) scale(.75); opacity: 0; }
@@ -177,6 +167,7 @@
       font-weight: 900;
       letter-spacing: -.045em;
       font-size: 1.1rem;
+      white-space: nowrap;
     }
 
     .logo-mark {
@@ -200,10 +191,6 @@
       inset: 8px;
       border-radius: 12px;
       border: 2px solid rgba(3,23,19,.32);
-    }
-
-    .brand span:last-child {
-      white-space: nowrap;
     }
 
     .nav-links {
@@ -306,7 +293,7 @@
 
     .section-head {
       text-align: center;
-      max-width: 860px;
+      max-width: 900px;
       margin: 0 auto 48px;
     }
 
@@ -464,6 +451,22 @@
       gap: 16px;
     }
 
+    .dashboard-top,
+    .metric-card,
+    .dashboard-flow,
+    .dashboard-bottom {
+      background: rgba(3,14,20,.66);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    html[data-theme="light"] .dashboard-top,
+    html[data-theme="light"] .metric-card,
+    html[data-theme="light"] .dashboard-flow,
+    html[data-theme="light"] .dashboard-bottom {
+      background: rgba(255,255,255,.78);
+    }
+
     .dashboard-top {
       display: flex;
       align-items: center;
@@ -471,13 +474,6 @@
       gap: 14px;
       padding: 18px;
       border-radius: 24px;
-      background: rgba(3,14,20,.7);
-      border: 1px solid var(--line);
-      backdrop-filter: blur(12px);
-    }
-
-    html[data-theme="light"] .dashboard-top {
-      background: rgba(255,255,255,.78);
     }
 
     .status-pill {
@@ -491,6 +487,7 @@
       background: rgba(36,242,182,.08);
       font-size: .82rem;
       font-weight: 900;
+      white-space: nowrap;
     }
 
     html[data-theme="light"] .status-pill {
@@ -515,15 +512,8 @@
       min-height: 118px;
       padding: 18px;
       border-radius: 24px;
-      background: rgba(3,14,20,.66);
-      border: 1px solid var(--line);
-      backdrop-filter: blur(12px);
       position: relative;
       overflow: hidden;
-    }
-
-    html[data-theme="light"] .metric-card {
-      background: rgba(255,255,255,.78);
     }
 
     .metric-card::after {
@@ -561,16 +551,9 @@
     .dashboard-flow {
       min-height: 260px;
       border-radius: 28px;
-      background: rgba(3,14,20,.66);
-      border: 1px solid var(--line);
-      backdrop-filter: blur(12px);
       position: relative;
       overflow: hidden;
       padding: 18px;
-    }
-
-    html[data-theme="light"] .dashboard-flow {
-      background: rgba(255,255,255,.78);
     }
 
     .flow-orbit {
@@ -640,13 +623,6 @@
     .dashboard-bottom {
       padding: 18px;
       border-radius: 24px;
-      background: rgba(3,14,20,.66);
-      border: 1px solid var(--line);
-      backdrop-filter: blur(12px);
-    }
-
-    html[data-theme="light"] .dashboard-bottom {
-      background: rgba(255,255,255,.78);
     }
 
     .mini-bars {
@@ -907,6 +883,142 @@
       margin-bottom: 14px;
     }
 
+    .global-map-shell {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    #globalHydrogenMap {
+      height: 620px;
+      min-height: 620px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      background: rgba(255,255,255,.06);
+      z-index: 1;
+    }
+
+    .map-side-panel {
+      display: grid;
+      gap: 16px;
+    }
+
+    .map-country-card {
+      min-height: 270px;
+    }
+
+    .map-country-card h3 {
+      font-size: 1.65rem;
+    }
+
+    .map-status {
+      display: inline-flex;
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: .78rem;
+      margin-bottom: 12px;
+      color: #031713;
+      background: linear-gradient(135deg, var(--green), #dffff4);
+    }
+
+    .map-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .map-meta {
+      padding: 13px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+    }
+
+    .map-meta strong {
+      display: block;
+      color: var(--green);
+      font-size: 1.05rem;
+    }
+
+    .map-meta span {
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    .map-control-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0 0;
+    }
+
+    .map-chip {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 10px 13px;
+      font-weight: 900;
+      font-size: .82rem;
+      cursor: pointer;
+    }
+
+    .map-chip:hover,
+    .map-chip.active {
+      background: linear-gradient(135deg, var(--green), #b7ffe9);
+      color: #031713;
+      border-color: transparent;
+    }
+
+    .leaflet-popup-content-wrapper,
+    .leaflet-popup-tip {
+      background: rgba(3,14,20,.96);
+      color: #f8fafc;
+      border: 1px solid rgba(255,255,255,.16);
+    }
+
+    html[data-theme="light"] .leaflet-popup-content-wrapper,
+    html[data-theme="light"] .leaflet-popup-tip {
+      background: rgba(255,255,255,.96);
+      color: #08131c;
+    }
+
+    .leaflet-popup-content {
+      font-family: Inter, system-ui, sans-serif;
+      min-width: 230px;
+    }
+
+    .popup-title {
+      font-weight: 900;
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .popup-badge {
+      display: inline-flex;
+      padding: 5px 8px;
+      border-radius: 999px;
+      color: #031713;
+      background: #24f2b6;
+      font-weight: 900;
+      font-size: .72rem;
+      margin-bottom: 8px;
+    }
+
+    .popup-list {
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+
+    .popup-list li {
+      margin-bottom: 4px;
+    }
+
     .target-track {
       display: grid;
       gap: 12px;
@@ -928,112 +1040,6 @@
       color: var(--yellow);
       font-weight: 900;
       font-size: 1.1rem;
-    }
-
-    .map-card {
-      min-height: 430px;
-    }
-
-    .map-visual {
-      position: relative;
-      min-height: 390px;
-      border-radius: 26px;
-      border: 1px solid var(--line);
-      background:
-        radial-gradient(circle at 48% 45%, rgba(36,242,182,.22), transparent 32%),
-        radial-gradient(circle at 70% 30%, rgba(100,168,255,.18), transparent 28%),
-        linear-gradient(145deg, rgba(100,168,255,.08), rgba(36,242,182,.055));
-      overflow: hidden;
-      margin-top: 18px;
-    }
-
-    .europe-map {
-      position: absolute;
-      inset: 12px 12px 66px 12px;
-      width: calc(100% - 24px);
-      height: calc(100% - 78px);
-      opacity: .95;
-    }
-
-    .map-land {
-      fill: rgba(216,231,239,.18);
-      stroke: rgba(255,255,255,.35);
-      stroke-width: 1.4;
-      filter: drop-shadow(0 10px 26px rgba(0,0,0,.25));
-    }
-
-    html[data-theme="light"] .map-land {
-      fill: rgba(8,19,28,.08);
-      stroke: rgba(8,19,28,.23);
-    }
-
-    .map-sea-line {
-      fill: none;
-      stroke: rgba(36,242,182,.38);
-      stroke-width: 2;
-      stroke-dasharray: 8 10;
-      animation: mapDash 4s linear infinite;
-    }
-
-    .map-pipeline-path {
-      fill: none;
-      stroke: url(#pipelineGradient);
-      stroke-width: 5;
-      stroke-linecap: round;
-      filter: drop-shadow(0 0 14px rgba(36,242,182,.55));
-      stroke-dasharray: 10 8;
-      animation: mapDash 2.2s linear infinite;
-    }
-
-    @keyframes mapDash {
-      to { stroke-dashoffset: -90; }
-    }
-
-    .map-dot {
-      position: absolute;
-      width: 43px;
-      height: 43px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      color: #031713;
-      background: linear-gradient(135deg, var(--green), #dffff4);
-      box-shadow: 0 12px 36px rgba(36,242,182,.34);
-      font-weight: 900;
-      font-size: .78rem;
-      border: 2px solid rgba(255,255,255,.7);
-      cursor: pointer;
-      transition: .25s ease;
-      z-index: 3;
-    }
-
-    .map-dot:hover {
-      transform: scale(1.15);
-    }
-
-    .dot-de { left: 50%; top: 43%; }
-    .dot-nl { left: 41%; top: 41%; }
-    .dot-fr { left: 42%; top: 58%; }
-    .dot-es { left: 27%; top: 75%; }
-    .dot-dk { left: 52%; top: 25%; }
-    .dot-pl { left: 64%; top: 44%; }
-
-    .map-caption {
-      position: absolute;
-      left: 18px;
-      right: 18px;
-      bottom: 16px;
-      padding: 12px 14px;
-      border-radius: 18px;
-      background: rgba(3,14,20,.72);
-      border: 1px solid rgba(255,255,255,.12);
-      color: var(--muted);
-      font-size: .86rem;
-      z-index: 4;
-    }
-
-    html[data-theme="light"] .map-caption {
-      background: rgba(255,255,255,.88);
     }
 
     .progress-comparison {
@@ -1353,8 +1359,14 @@
       .source-grid,
       .module-grid,
       .simulator-panel,
-      .value-grid {
+      .value-grid,
+      .global-map-shell {
         grid-template-columns: 1fr;
+      }
+
+      #globalHydrogenMap {
+        height: 520px;
+        min-height: 520px;
       }
 
       .hero-product {
@@ -1384,7 +1396,7 @@
         display: none;
       }
 
-      .brand span:last-child {
+      .brand {
         font-size: .95rem;
       }
 
@@ -1437,13 +1449,19 @@
         text-align: left;
       }
 
-      .gap-number {
+      .gap-number,
+      .map-meta-grid {
         grid-template-columns: 1fr;
       }
 
       .impact-banner {
         grid-template-columns: 1fr;
         padding: 26px 20px;
+      }
+
+      #globalHydrogenMap {
+        height: 470px;
+        min-height: 470px;
       }
 
       .cta {
@@ -1478,7 +1496,7 @@
 
   <div class="energy-particles" aria-hidden="true">
     <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span>
   </div>
 
   <header>
@@ -1494,6 +1512,7 @@
         <a href="#simulator" data-en="Simulator" data-de="Simulator">Simulator</a>
         <a href="#modules" data-en="Modules" data-de="Module">Modules</a>
         <a href="#policy" data-en="Policy" data-de="Politik">Policy</a>
+        <a href="#global-map" data-en="Global Map" data-de="Weltkarte">Global Map</a>
         <a href="#gap" data-en="Gap" data-de="Lücke">Gap</a>
         <a href="#calculator" data-en="Quick Check" data-de="Quick Check">Quick Check</a>
       </nav>
@@ -1512,6 +1531,7 @@
       <a href="#simulator" data-en="Simulator" data-de="Simulator">Simulator</a>
       <a href="#modules" data-en="Modules" data-de="Module">Modules</a>
       <a href="#policy" data-en="Policy" data-de="Politik">Policy</a>
+      <a href="#global-map" data-en="Global Map" data-de="Weltkarte">Global Map</a>
       <a href="#gap" data-en="Gap" data-de="Lücke">Gap</a>
       <a href="#calculator" data-en="Quick Check" data-de="Quick Check">Quick Check</a>
       <a href="#contact" data-en="Contact" data-de="Kontakt">Contact</a>
@@ -1524,10 +1544,10 @@
         <div class="reveal">
           <div
             class="eyebrow"
-            data-en="Clean Energy Decision Intelligence · Start-Up Project SS2026"
-            data-de="Clean Energy Decision Intelligence · Start-Up-Projekt SS2026"
+            data-en="Global Clean Energy Decision Intelligence · Start-Up Project SS2026"
+            data-de="Globale Clean Energy Decision Intelligence · Start-Up-Projekt SS2026"
           >
-            Clean Energy Decision Intelligence · Start-Up Project SS2026
+            Global Clean Energy Decision Intelligence · Start-Up Project SS2026
           </div>
 
           <h1
@@ -1547,7 +1567,7 @@
 
           <div class="hero-actions">
             <a href="#simulator" class="btn btn-primary" data-en="Try the system simulator" data-de="System-Simulator testen">Try the system simulator</a>
-            <a href="#gap" class="btn btn-secondary" data-en="View Europe’s H2 gap" data-de="Europas H2-Lücke ansehen">View Europe’s H2 gap</a>
+            <a href="#global-map" class="btn btn-secondary" data-en="Explore global H2 markets" data-de="Globale H2-Märkte ansehen">Explore global H2 markets</a>
           </div>
 
           <div class="trust-row">
@@ -1556,8 +1576,8 @@
               <span data-en="Decision support before investment" data-de="Entscheidungsunterstützung vor der Investition">Decision support before investment</span>
             </div>
             <div class="trust-card">
-              <strong data-en="PV · Battery · H2" data-de="PV · Batterie · H2">PV · Battery · H2</strong>
-              <span data-en="Integrated techno-economic analysis" data-de="Integrierte techno-ökonomische Analyse">Integrated techno-economic analysis</span>
+              <strong data-en="Europe + Asia" data-de="Europa + Asien">Europe + Asia</strong>
+              <span data-en="Global hydrogen opportunity map" data-de="Globale Wasserstoff-Chancenkarte">Global hydrogen opportunity map</span>
             </div>
             <div class="trust-card">
               <strong data-en="Fuel-cell backup" data-de="Brennstoffzellen-Backup">Fuel-cell backup</strong>
@@ -1638,6 +1658,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
@@ -1670,8 +1691,8 @@
           <article class="card reveal">
             <div class="icon-badge">CO2</div>
             <h3 data-en="Decarbonisation pressure" data-de="Dekarbonisierungsdruck">Decarbonisation pressure</h3>
-            <p data-en="EU and German policy increasingly rewards credible renewable and hydrogen pathways." data-de="EU- und deutsche Politik erhöhen die Bedeutung glaubwürdiger erneuerbarer Energie- und Wasserstoffpfade.">
-              EU and German policy increasingly rewards credible renewable and hydrogen pathways.
+            <p data-en="EU and Asian policy signals increasingly reward credible renewable and hydrogen pathways." data-de="EU- und asiatische Politiksig­nale erhöhen die Bedeutung glaubwürdiger erneuerbarer Energie- und Wasserstoffpfade.">
+              EU and Asian policy signals increasingly reward credible renewable and hydrogen pathways.
             </p>
           </article>
 
@@ -1855,49 +1876,37 @@
           <article class="card module-card reveal">
             <div class="module-number">01</div>
             <h3 data-en="Site Potential Check" data-de="Standort-Potenzialcheck">Site Potential Check</h3>
-            <p data-en="Initial screening of area, load, renewable potential and energy cost exposure." data-de="Erste Prüfung von Fläche, Last, erneuerbarem Potenzial und Energiekostenrisiko.">
-              Initial screening of area, load, renewable potential and energy cost exposure.
-            </p>
+            <p data-en="Initial screening of area, load, renewable potential and energy cost exposure." data-de="Erste Prüfung von Fläche, Last, erneuerbarem Potenzial und Energiekostenrisiko.">Initial screening of area, load, renewable potential and energy cost exposure.</p>
           </article>
 
           <article class="card module-card reveal">
             <div class="module-number">02</div>
             <h3 data-en="PV + Battery Optimiser" data-de="PV- + Batterieoptimierer">PV + Battery Optimiser</h3>
-            <p data-en="Compares self-consumption, battery sizing and short-term flexibility value." data-de="Vergleicht Eigenverbrauch, Batteriedimensionierung und kurzfristigen Flexibilitätswert.">
-              Compares self-consumption, battery sizing and short-term flexibility value.
-            </p>
+            <p data-en="Compares self-consumption, battery sizing and short-term flexibility value." data-de="Vergleicht Eigenverbrauch, Batteriedimensionierung und kurzfristigen Flexibilitätswert.">Compares self-consumption, battery sizing and short-term flexibility value.</p>
           </article>
 
           <article class="card module-card reveal">
             <div class="module-number">03</div>
             <h3 data-en="Hydrogen Sizing" data-de="Wasserstoffdimensionierung">Hydrogen Sizing</h3>
-            <p data-en="Evaluates electrolyser size, hydrogen tank capacity and backup energy requirements." data-de="Bewertet Elektrolyseurgröße, Wasserstofftankkapazität und Backup-Energiebedarf.">
-              Evaluates electrolyser size, hydrogen tank capacity and backup energy requirements.
-            </p>
+            <p data-en="Evaluates electrolyser size, hydrogen tank capacity and backup energy requirements." data-de="Bewertet Elektrolyseurgröße, Wasserstofftankkapazität und Backup-Energiebedarf.">Evaluates electrolyser size, hydrogen tank capacity and backup energy requirements.</p>
           </article>
 
           <article class="card module-card reveal">
             <div class="module-number">04</div>
             <h3 data-en="Fuel Cell Backup Simulation" data-de="Brennstoffzellen-Backup-Simulation">Fuel Cell Backup Simulation</h3>
-            <p data-en="Checks how stored hydrogen can support the site at night or during renewable fluctuations." data-de="Prüft, wie gespeicherter Wasserstoff den Standort nachts oder bei Erzeugungsschwankungen unterstützt.">
-              Checks how stored hydrogen can support the site at night or during renewable fluctuations.
-            </p>
+            <p data-en="Checks how stored hydrogen can support the site at night or during renewable fluctuations." data-de="Prüft, wie gespeicherter Wasserstoff den Standort nachts oder bei Erzeugungsschwankungen unterstützt.">Checks how stored hydrogen can support the site at night or during renewable fluctuations.</p>
           </article>
 
           <article class="card module-card reveal">
             <div class="module-number">05</div>
             <h3 data-en="LCOH / ROI Dashboard" data-de="LCOH- / ROI-Dashboard">LCOH / ROI Dashboard</h3>
-            <p data-en="Calculates CAPEX, OPEX, LCOH, CO2 savings, payback and sensitivity ranges." data-de="Berechnet CAPEX, OPEX, LCOH, CO2-Einsparung, Payback und Sensitivitäten.">
-              Calculates CAPEX, OPEX, LCOH, CO2 savings, payback and sensitivity ranges.
-            </p>
+            <p data-en="Calculates CAPEX, OPEX, LCOH, CO2 savings, payback and sensitivity ranges." data-de="Berechnet CAPEX, OPEX, LCOH, CO2-Einsparung, Payback und Sensitivitäten.">Calculates CAPEX, OPEX, LCOH, CO2 savings, payback and sensitivity ranges.</p>
           </article>
 
           <article class="card module-card reveal">
             <div class="module-number">06</div>
             <h3 data-en="Investor-Ready Report" data-de="Investorentauglicher Report">Investor-Ready Report</h3>
-            <p data-en="Turns technical scenarios into a clear decision sheet for customers, banks and investors." data-de="Verwandelt technische Szenarien in eine klare Entscheidungsgrundlage für Kunden, Banken und Investoren.">
-              Turns technical scenarios into a clear decision sheet for customers, banks and investors.
-            </p>
+            <p data-en="Turns technical scenarios into a clear decision sheet for customers, banks and investors." data-de="Verwandelt technische Szenarien in eine klare Entscheidungsgrundlage für Kunden, Banken und Investoren.">Turns technical scenarios into a clear decision sheet for customers, banks and investors.</p>
           </article>
         </div>
       </div>
@@ -1908,16 +1917,16 @@
         <div class="section-head reveal">
           <div class="eyebrow" data-en="Policy & Market Pull" data-de="Politik & Marktnachfrage">Policy & Market Pull</div>
           <h2
-            data-en="Europe is creating demand for renewable hydrogen. The deployment gap is the opportunity."
-            data-de="Europa schafft Nachfrage nach erneuerbarem Wasserstoff. Die Umsetzungslücke ist die Chance."
+            data-en="Global hydrogen roadmaps are creating a new market for decision intelligence."
+            data-de="Globale Wasserstoff-Roadmaps schaffen einen neuen Markt für Decision Intelligence."
           >
-            Europe is creating demand for renewable hydrogen. The deployment gap is the opportunity.
+            Global hydrogen roadmaps are creating a new market for decision intelligence.
           </h2>
           <p
-            data-en="H2Jau-Energi helps customers and investors translate regulation, infrastructure gaps and site-level renewable potential into a practical hydrogen storage, fuel-cell backup and surplus offtake strategy."
-            data-de="H2Jau-Energi hilft Kunden und Investoren, Regulierung, Infrastrukturlücken und standortspezifisches erneuerbares Potenzial in eine praktische Strategie für Wasserstoffspeicherung, Brennstoffzellen-Backup und Überschussabnahme zu übersetzen."
+            data-en="Europe, Germany and several Asian countries have hydrogen strategies, roadmaps or emerging policy frameworks. H2Jau-Energi connects these market signals to practical site-level investment decisions."
+            data-de="Europa, Deutschland und mehrere asiatische Länder haben Wasserstoffstrategien, Roadmaps oder entstehende politische Rahmenbedingungen. H2Jau-Energi verbindet diese Marktsignale mit praktischen Investitionsentscheidungen auf Standortebene."
           >
-            H2Jau-Energi helps customers and investors translate regulation, infrastructure gaps and site-level renewable potential into a practical hydrogen storage, fuel-cell backup and surplus offtake strategy.
+            Europe, Germany and several Asian countries have hydrogen strategies, roadmaps or emerging policy frameworks. H2Jau-Energi connects these market signals to practical site-level investment decisions.
           </p>
         </div>
 
@@ -1925,38 +1934,114 @@
           <article class="card policy-card reveal">
             <span class="policy-tag">RED III</span>
             <strong>42% → 60%</strong>
-            <h3 data-en="Industry RFNBO target" data-de="RFNBO-Ziel in der Industrie">Industry RFNBO target</h3>
-            <p data-en="By 2030, RFNBOs are expected to cover at least 42% of industrial hydrogen use, rising to 60% in 2035." data-de="Bis 2030 sollen RFNBOs mindestens 42% des industriellen Wasserstoffeinsatzes abdecken, bis 2035 steigt der Wert auf 60%.">
-              By 2030, RFNBOs are expected to cover at least 42% of industrial hydrogen use, rising to 60% in 2035.
-            </p>
+            <h3 data-en="EU industry RFNBO target" data-de="EU-RFNBO-Ziel in der Industrie">EU industry RFNBO target</h3>
+            <p data-en="By 2030, RFNBOs are expected to cover at least 42% of industrial hydrogen use, rising to 60% in 2035." data-de="Bis 2030 sollen RFNBOs mindestens 42% des industriellen Wasserstoffeinsatzes abdecken, bis 2035 steigt der Wert auf 60%.">By 2030, RFNBOs are expected to cover at least 42% of industrial hydrogen use, rising to 60% in 2035.</p>
           </article>
 
           <article class="card policy-card reveal">
-            <span class="policy-tag">ReFuelEU</span>
-            <strong>2025 → 2050</strong>
-            <h3 data-en="Aviation fuel transition" data-de="Transformation im Luftverkehr">Aviation fuel transition</h3>
-            <p data-en="SAF obligations start at 2% in 2025 and rise to 70% in 2050, with synthetic aviation fuel shares starting in 2030." data-de="SAF-Pflichten starten 2025 mit 2% und steigen bis 2050 auf 70%; synthetische Kraftstoffanteile beginnen ab 2030.">
-              SAF obligations start at 2% in 2025 and rise to 70% in 2050, with synthetic aviation fuel shares starting in 2030.
-            </p>
+            <span class="policy-tag">Germany</span>
+            <strong>10 GW</strong>
+            <h3 data-en="Electrolysis target by 2030" data-de="Elektrolyseziel bis 2030">Electrolysis target by 2030</h3>
+            <p data-en="Germany targets at least 10 GW electrolysis capacity by 2030, creating strong demand for bankable hydrogen projects." data-de="Deutschland zielt auf mindestens 10 GW Elektrolyseleistung bis 2030 und schafft damit Nachfrage nach bankfähigen Wasserstoffprojekten.">Germany targets at least 10 GW electrolysis capacity by 2030, creating strong demand for bankable hydrogen projects.</p>
           </article>
 
           <article class="card policy-card reveal">
-            <span class="policy-tag">FuelEU</span>
-            <strong>-80%</strong>
-            <h3 data-en="Maritime intensity reduction" data-de="Reduktion der maritimen Intensität">Maritime intensity reduction</h3>
-            <p data-en="FuelEU Maritime reduces allowed greenhouse-gas intensity stepwise from 2025 to 2050 and includes RFNBO-related mechanisms." data-de="FuelEU Maritime senkt die zulässige Treibhausgasintensität schrittweise von 2025 bis 2050 und enthält RFNBO-bezogene Mechanismen.">
-              FuelEU Maritime reduces allowed greenhouse-gas intensity stepwise from 2025 to 2050 and includes RFNBO-related mechanisms.
-            </p>
+            <span class="policy-tag">Asia</span>
+            <strong>2050</strong>
+            <h3 data-en="Roadmaps are emerging" data-de="Roadmaps entstehen">Roadmaps are emerging</h3>
+            <p data-en="Malaysia, Japan, Singapore, Korea, Indonesia and Thailand show different hydrogen pathways, from imports to exports, mobility, power and industry." data-de="Malaysia, Japan, Singapur, Korea, Indonesien und Thailand zeigen unterschiedliche Wasserstoffpfade: Import, Export, Mobilität, Strom und Industrie.">Malaysia, Japan, Singapore, Korea, Indonesia and Thailand show different hydrogen pathways, from imports to exports, mobility, power and industry.</p>
           </article>
 
           <article class="card policy-card reveal">
             <span class="policy-tag">EHO</span>
             <strong>600 MW</strong>
-            <h3 data-en="Deployment still needs scale" data-de="Der Ausbau muss skalieren">Deployment still needs scale</h3>
-            <p data-en="EU operational electrolysis capacity was around 600 MW in 2025, still far below the 2030 scale required." data-de="Die operative Elektrolysekapazität der EU lag 2025 bei rund 600 MW und damit weit unter dem für 2030 benötigten Niveau.">
-              EU operational electrolysis capacity was around 600 MW in 2025, still far below the 2030 scale required.
-            </p>
+            <h3 data-en="EU deployment still needs scale" data-de="EU-Ausbau muss skalieren">EU deployment still needs scale</h3>
+            <p data-en="EU operational electrolysis capacity remains far below the 2030 scale required, creating a major investment and project-development gap." data-de="Die operative Elektrolysekapazität der EU bleibt weit unter dem für 2030 benötigten Niveau und schafft eine große Investitions- und Projektentwicklungslücke.">EU operational electrolysis capacity remains far below the 2030 scale required, creating a major investment and project-development gap.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="global-map">
+      <div class="container">
+        <div class="section-head reveal">
+          <div
+            class="eyebrow"
+            data-en="Global Hydrogen Opportunity Map"
+            data-de="Globale Wasserstoff-Chancenkarte"
+          >
+            Global Hydrogen Opportunity Map
+          </div>
+
+          <h2
+            data-en="From Europe to Asia: hydrogen markets are moving at different speeds."
+            data-de="Von Europa bis Asien: Wasserstoffmärkte entwickeln sich mit unterschiedlicher Geschwindigkeit."
+          >
+            From Europe to Asia: hydrogen markets are moving at different speeds.
+          </h2>
+
+          <p
+            data-en="Explore selected hydrogen roadmaps, national strategies and market signals. Click a country or marker to see why H2Jau-Energi could support site-level hydrogen decisions there."
+            data-de="Erkunde ausgewählte Wasserstoff-Roadmaps, nationale Strategien und Marktsignale. Klicke auf ein Land oder einen Marker, um zu sehen, warum H2Jau-Energi dort Standortentscheidungen unterstützen könnte."
+          >
+            Explore selected hydrogen roadmaps, national strategies and market signals. Click a country or marker to see why H2Jau-Energi could support site-level hydrogen decisions there.
+          </p>
+
+          <div class="map-control-row" style="justify-content:center">
+            <button class="map-chip active" data-filter="all" data-en="All markets" data-de="Alle Märkte">All markets</button>
+            <button class="map-chip" data-filter="europe" data-en="Europe" data-de="Europa">Europe</button>
+            <button class="map-chip" data-filter="asia" data-en="Asia" data-de="Asien">Asia</button>
+            <button class="map-chip" data-filter="scaling" data-en="Scaling" data-de="Skalierung">Scaling</button>
+            <button class="map-chip" data-filter="emerging" data-en="Emerging" data-de="Aufbauphase">Emerging</button>
+            <button class="map-chip" id="locateMe" data-en="Use my location" data-de="Mein Standort">Use my location</button>
+          </div>
+        </div>
+
+        <div class="global-map-shell">
+          <div class="card reveal" style="padding:14px">
+            <div id="globalHydrogenMap"></div>
+          </div>
+
+          <div class="map-side-panel">
+            <article class="card map-country-card reveal">
+              <span class="map-status" id="mapStatus">Global view</span>
+              <h3 id="mapCountryTitle">Choose a country on the map</h3>
+              <p id="mapCountryText">
+                Click Germany, Malaysia, Japan, Singapore, South Korea, Indonesia, Thailand or another marker to see roadmap status, targets and H2Jau-Energi opportunity.
+              </p>
+
+              <div class="map-meta-grid">
+                <div class="map-meta">
+                  <strong id="mapTarget">Select</strong>
+                  <span data-en="Target / roadmap" data-de="Ziel / Roadmap">Target / roadmap</span>
+                </div>
+                <div class="map-meta">
+                  <strong id="mapOpportunity">Select</strong>
+                  <span data-en="Opportunity" data-de="Chance">Opportunity</span>
+                </div>
+              </div>
+
+              <p class="source-note" id="mapSourceNote">
+                Source-backed starter dataset. Replace or expand with your final report sources.
+              </p>
+            </article>
+
+            <article class="card reveal">
+              <h3
+                data-en="How H2Jau-Energi fits globally"
+                data-de="Wie H2Jau-Energi global passt"
+              >
+                How H2Jau-Energi fits globally
+              </h3>
+
+              <p
+                data-en="Many countries have hydrogen targets, but customers still need local investment decisions: PV size, battery size, electrolyser size, hydrogen storage, fuel-cell backup and surplus offtake logic."
+                data-de="Viele Länder haben Wasserstoffziele, aber Kunden brauchen weiterhin lokale Investitionsentscheidungen: PV-Größe, Batteriegröße, Elektrolyseurgröße, Wasserstoffspeicher, Brennstoffzellen-Backup und Überschussabnahme."
+              >
+                Many countries have hydrogen targets, but customers still need local investment decisions: PV size, battery size, electrolyser size, hydrogen storage, fuel-cell backup and surplus offtake logic.
+              </p>
+            </article>
+          </div>
         </div>
       </div>
     </section>
@@ -1964,124 +2049,19 @@
     <section id="gap">
       <div class="container">
         <div class="section-head reveal">
-          <div class="eyebrow" data-en="Map & Gap Analysis" data-de="Karte & Lückenanalyse">Map & Gap Analysis</div>
+          <div class="eyebrow" data-en="Gap Analysis" data-de="Lückenanalyse">Gap Analysis</div>
           <h2
-            data-en="Europe has the targets. The missing piece is investable site-level execution."
-            data-de="Europa hat die Ziele. Das fehlende Stück ist investierbare Umsetzung auf Standortebene."
+            data-en="The hydrogen market has ambition. The execution gap is still huge."
+            data-de="Der Wasserstoffmarkt hat Ambition. Die Umsetzungslücke ist noch enorm."
           >
-            Europe has the targets. The missing piece is investable site-level execution.
+            The hydrogen market has ambition. The execution gap is still huge.
           </h2>
           <p
-            data-en="These visuals show why H2Jau-Energi matters: the policy targets are large, current deployment is still small, and customers need practical tools to decide what to build."
-            data-de="Diese Visuals zeigen, warum H2Jau-Energi relevant ist: Die politischen Ziele sind groß, der heutige Ausbau ist noch klein, und Kunden brauchen praktische Tools, um Investitionen zu entscheiden."
+            data-en="These progress bars show why bankable site-level decisions matter. Policy targets are large, current deployment is still small, and the market needs practical project development."
+            data-de="Diese Fortschrittsbalken zeigen, warum bankfähige Standortentscheidungen wichtig sind. Die politischen Ziele sind groß, der heutige Ausbau ist noch klein, und der Markt braucht praktische Projektentwicklung."
           >
-            These visuals show why H2Jau-Energi matters: the policy targets are large, current deployment is still small, and customers need practical tools to decide what to build.
+            These progress bars show why bankable site-level decisions matter. Policy targets are large, current deployment is still small, and the market needs practical project development.
           </p>
-        </div>
-
-        <div class="market-grid">
-          <div class="card map-card reveal">
-            <div class="eyebrow" data-en="Interactive hydrogen map" data-de="Interaktive Wasserstoffkarte">Interactive hydrogen map</div>
-            <h2
-              data-en="A network is emerging, but local decision tools are still missing."
-              data-de="Ein Netzwerk entsteht, aber lokale Entscheidungstools fehlen noch."
-            >
-              A network is emerging, but local decision tools are still missing.
-            </h2>
-            <p
-              data-en="Click the country markers to see why regional hydrogen corridors, industrial clusters and offtakers matter for site-level business cases."
-              data-de="Klicke auf die Länderpunkte, um zu sehen, warum regionale Wasserstoffkorridore, Industriecluster und Abnehmer für Standort-Business-Cases wichtig sind."
-            >
-              Click the country markers to see why regional hydrogen corridors, industrial clusters and offtakers matter for site-level business cases.
-            </p>
-
-            <div class="map-visual" aria-label="Stylised interactive European hydrogen infrastructure map">
-              <svg class="europe-map" viewBox="0 0 720 430" role="img" aria-label="Stylised Europe map">
-                <defs>
-                  <linearGradient id="pipelineGradient" x1="0" x2="1" y1="0" y2="0">
-                    <stop offset="0%" stop-color="#64a8ff" />
-                    <stop offset="55%" stop-color="#24f2b6" />
-                    <stop offset="100%" stop-color="#facc15" />
-                  </linearGradient>
-                </defs>
-
-                <path class="map-land" d="M142 270 C112 235,126 188,166 170 C204 153,230 119,275 123 C314 127,336 102,380 119 C414 132,453 117,493 135 C533 154,559 190,575 223 C596 268,564 309,518 307 C488 305,462 327,423 321 C381 315,358 337,315 325 C278 315,254 283,220 292 C186 301,164 293,142 270 Z" />
-                <path class="map-land" d="M300 103 C286 72,305 43,339 37 C373 31,397 51,402 84 C381 92,353 98,326 113 C316 118,306 116,300 103 Z" />
-                <path class="map-land" d="M238 331 C265 334,283 358,274 386 C245 384,221 369,205 346 C211 337,224 331,238 331 Z" />
-                <path class="map-land" d="M585 135 C611 133,638 150,648 174 C628 186,600 181,581 161 C575 151,575 139,585 135 Z" />
-                <path class="map-sea-line" d="M120 260 C198 185,287 183,360 211 C438 242,506 236,590 185" />
-                <path class="map-pipeline-path" d="M194 246 C260 212,316 215,374 235 C435 256,489 250,555 217" />
-                <path class="map-pipeline-path" d="M282 310 C322 276,371 262,426 267 C475 272,505 292,541 318" />
-              </svg>
-
-              <button class="map-dot dot-de" data-map-en="Germany: 10 GW electrolysis target by 2030 and strong industrial demand make it a key market for site-level hydrogen optimisation." data-map-de="Deutschland: 10 GW Elektrolyseziel bis 2030 und starke industrielle Nachfrage machen es zu einem Schlüsselmarkt für Standort-Wasserstoffoptimierung.">DE</button>
-              <button class="map-dot dot-nl" data-map-en="Netherlands: port infrastructure and hydrogen corridors are relevant for future hydrogen imports and offtake." data-map-de="Niederlande: Hafeninfrastruktur und Wasserstoffkorridore sind relevant für zukünftige Wasserstoffimporte und Abnahme.">NL</button>
-              <button class="map-dot dot-fr" data-map-en="France: industrial clusters and low-carbon power can support hydrogen deployment and offtake." data-map-de="Frankreich: Industriecluster und CO2-armer Strom können Wasserstoffausbau und Abnahme unterstützen.">FR</button>
-              <button class="map-dot dot-es" data-map-en="Spain: strong renewable resources create export-oriented hydrogen opportunities." data-map-de="Spanien: Starke erneuerbare Ressourcen schaffen exportorientierte Wasserstoffchancen.">ES</button>
-              <button class="map-dot dot-dk" data-map-en="Denmark: wind resources and North Sea infrastructure strengthen renewable hydrogen potential." data-map-de="Dänemark: Windressourcen und Nordsee-Infrastruktur stärken das Potenzial für erneuerbaren Wasserstoff.">DK</button>
-              <button class="map-dot dot-pl" data-map-en="Poland: industrial demand and transition needs can create future hydrogen demand centres." data-map-de="Polen: Industrielle Nachfrage und Transformationsbedarf können zukünftige Wasserstoff-Nachfragezentren schaffen.">PL</button>
-
-              <div
-                class="map-caption"
-                id="mapCaption"
-                data-en="Illustrative map based on official EU hydrogen map categories: production plants, pipelines, refuelling stations, storage, demand and infrastructure projects."
-                data-de="Illustrative Karte basierend auf offiziellen EU-Wasserstoffkartenkategorien: Produktion, Pipelines, Tankstellen, Speicher, Nachfrage und Infrastrukturprojekte."
-              >
-                Illustrative map based on official EU hydrogen map categories: production plants, pipelines, refuelling stations, storage, demand and infrastructure projects.
-              </div>
-            </div>
-
-            <p
-              class="source-note"
-              data-en="Use the official European Hydrogen Observatory Geomap and Hydrogen Infrastructure Map for verified project locations before final submission."
-              data-de="Nutze die offizielle European Hydrogen Observatory Geomap und Hydrogen Infrastructure Map für verifizierte Projektstandorte vor der finalen Abgabe."
-            >
-              Use the official European Hydrogen Observatory Geomap and Hydrogen Infrastructure Map for verified project locations before final submission.
-            </p>
-          </div>
-
-          <div class="card reveal">
-            <div class="eyebrow" data-en="European target path" data-de="Europäischer Zielpfad">European target path</div>
-            <h2 data-en="From policy pressure to investable hydrogen projects." data-de="Von politischem Druck zu investierbaren Wasserstoffprojekten.">
-              From policy pressure to investable hydrogen projects.
-            </h2>
-            <p
-              data-en="The regulation does not mean every company must immediately buy green hydrogen. It means that specific sectors and supply chains are increasingly pushed toward renewable fuels, RFNBOs and credible decarbonisation pathways."
-              data-de="Die Regulierung bedeutet nicht, dass jedes Unternehmen sofort grünen Wasserstoff kaufen muss. Sie zeigt aber, dass bestimmte Sektoren und Lieferketten zunehmend in Richtung erneuerbare Kraftstoffe, RFNBOs und glaubwürdige Dekarbonisierungspfade gedrückt werden."
-            >
-              The regulation does not mean every company must immediately buy green hydrogen. It means that specific sectors and supply chains are increasingly pushed toward renewable fuels, RFNBOs and credible decarbonisation pathways.
-            </p>
-
-            <div class="target-track">
-              <div class="target-row">
-                <span class="target-year">2025</span>
-                <p data-en="FuelEU Maritime starts; ReFuelEU Aviation SAF supply obligations begin." data-de="FuelEU Maritime startet; ReFuelEU Aviation SAF-Lieferpflichten beginnen.">
-                  FuelEU Maritime starts; ReFuelEU Aviation SAF supply obligations begin.
-                </p>
-              </div>
-
-              <div class="target-row">
-                <span class="target-year">2030</span>
-                <p data-en="EU renewables target reaches at least 42.5%; Germany targets at least 10 GW electrolysis capacity." data-de="Das EU-Erneuerbarenziel erreicht mindestens 42,5%; Deutschland zielt auf mindestens 10 GW Elektrolyseleistung.">
-                  EU renewables target reaches at least 42.5%; Germany targets at least 10 GW electrolysis capacity.
-                </p>
-              </div>
-
-              <div class="target-row">
-                <span class="target-year">2035</span>
-                <p data-en="Industrial RFNBO hydrogen target rises to 60%; synthetic fuel and maritime requirements tighten." data-de="Das industrielle RFNBO-Wasserstoffziel steigt auf 60%; synthetische Kraftstoff- und maritime Anforderungen verschärfen sich.">
-                  Industrial RFNBO hydrogen target rises to 60%; synthetic fuel and maritime requirements tighten.
-                </p>
-              </div>
-
-              <div class="target-row">
-                <span class="target-year">2050</span>
-                <p data-en="EU climate neutrality target and deep fuel transition in aviation and maritime." data-de="EU-Klimaneutralitätsziel und tiefgreifende Kraftstofftransformation in Luftfahrt und Schifffahrt.">
-                  EU climate neutrality target and deep fuel transition in aviation and maritime.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div class="gap-layout">
@@ -2182,8 +2162,8 @@
 
         <div class="impact-banner reveal">
           <div>
-            <h2 data-en="Your site can become part of Europe’s hydrogen ramp-up." data-de="Ihr Standort kann Teil des europäischen Wasserstoffhochlaufs werden.">
-              Your site can become part of Europe’s hydrogen ramp-up.
+            <h2 data-en="Your site can become part of the global hydrogen ramp-up." data-de="Ihr Standort kann Teil des globalen Wasserstoffhochlaufs werden.">
+              Your site can become part of the global hydrogen ramp-up.
             </h2>
             <p data-en="For customers, this means lower energy risk, higher renewable self-use and resilience through hydrogen backup. For investors, it means a clearer path from policy pressure to bankable clean-energy infrastructure." data-de="Für Kunden bedeutet das geringeres Energierisiko, höhere Nutzung erneuerbarer Energie und Resilienz durch Wasserstoff-Backup. Für Investoren entsteht ein klarerer Weg von politischem Druck zu bankfähiger Clean-Energy-Infrastruktur.">
               For customers, this means lower energy risk, higher renewable self-use and resilience through hydrogen backup. For investors, it means a clearer path from policy pressure to bankable clean-energy infrastructure.
@@ -2217,7 +2197,7 @@
           <article class="card value-card reveal">
             <h2 data-en="For investors" data-de="Für Investoren">For investors</h2>
             <ul>
-              <li data-en="Policy-driven market with visible deployment gap." data-de="Politisch getriebener Markt mit sichtbarer Umsetzungslücke.">Policy-driven market with visible deployment gap.</li>
+              <li data-en="Policy-driven global market with visible deployment gap." data-de="Politisch getriebener globaler Markt mit sichtbarer Umsetzungslücke.">Policy-driven global market with visible deployment gap.</li>
               <li data-en="Scalable software-supported analysis model." data-de="Skalierbares softwaregestütztes Analysemodell.">Scalable software-supported analysis model.</li>
               <li data-en="Repeatable site evaluation for portfolios." data-de="Wiederholbare Standortbewertung für Portfolios.">Repeatable site evaluation for portfolios.</li>
               <li data-en="Cleaner path from technical concept to bankable case." data-de="Klarerer Weg vom technischen Konzept zum bankfähigen Case.">Cleaner path from technical concept to bankable case.</li>
@@ -2317,9 +2297,7 @@
             <span class="phase">Phase 1</span>
             <div>
               <h3 data-en="Analysis" data-de="Analyse">Analysis</h3>
-              <p data-en="Build data basis: load profiles, generation profiles, market assumptions and first scenarios." data-de="Datenbasis aufbauen: Lastprofile, Erzeugungsprofile, Marktannahmen und erste Szenarien.">
-                Build data basis: load profiles, generation profiles, market assumptions and first scenarios.
-              </p>
+              <p data-en="Build data basis: load profiles, generation profiles, market assumptions and first scenarios." data-de="Datenbasis aufbauen: Lastprofile, Erzeugungsprofile, Marktannahmen und erste Szenarien.">Build data basis: load profiles, generation profiles, market assumptions and first scenarios.</p>
             </div>
           </div>
 
@@ -2327,9 +2305,7 @@
             <span class="phase">Phase 2</span>
             <div>
               <h3 data-en="MVP" data-de="MVP">MVP</h3>
-              <p data-en="Create a software prototype with optimisation logic and repeatable site evaluation." data-de="Software-Prototyp mit Optimierungslogik und wiederholbarer Standortbewertung erstellen.">
-                Create a software prototype with optimisation logic and repeatable site evaluation.
-              </p>
+              <p data-en="Create a software prototype with optimisation logic and repeatable site evaluation." data-de="Software-Prototyp mit Optimierungslogik und wiederholbarer Standortbewertung erstellen.">Create a software prototype with optimisation logic and repeatable site evaluation.</p>
             </div>
           </div>
 
@@ -2337,9 +2313,7 @@
             <span class="phase">Phase 3</span>
             <div>
               <h3 data-en="Pilot case" data-de="Pilotfall">Pilot case</h3>
-              <p data-en="Validate the approach using Ingolstadt Village as an illustrative reference case." data-de="Ansatz mit Ingolstadt Village als illustrativem Referenzfall validieren.">
-                Validate the approach using Ingolstadt Village as an illustrative reference case.
-              </p>
+              <p data-en="Validate the approach using Ingolstadt Village as an illustrative reference case." data-de="Ansatz mit Ingolstadt Village als illustrativem Referenzfall validieren.">Validate the approach using Ingolstadt Village as an illustrative reference case.</p>
             </div>
           </div>
 
@@ -2347,9 +2321,7 @@
             <span class="phase">Phase 4</span>
             <div>
               <h3 data-en="Market entry" data-de="Markteintritt">Market entry</h3>
-              <p data-en="Win first pilot customers through consulting, feasibility studies and partner networks." data-de="Erste Pilotkunden über Beratung, Machbarkeitsstudien und Partnernetzwerke gewinnen.">
-                Win first pilot customers through consulting, feasibility studies and partner networks.
-              </p>
+              <p data-en="Win first pilot customers through consulting, feasibility studies and partner networks." data-de="Erste Pilotkunden über Beratung, Machbarkeitsstudien und Partnernetzwerke gewinnen.">Win first pilot customers through consulting, feasibility studies and partner networks.</p>
             </div>
           </div>
 
@@ -2357,9 +2329,7 @@
             <span class="phase">Phase 5</span>
             <div>
               <h3 data-en="SaaS scaling" data-de="SaaS-Skalierung">SaaS scaling</h3>
-              <p data-en="Standardise analysis modules for multi-site customers and recurring software revenue." data-de="Analysemodule für Multi-Standort-Kunden und wiederkehrende Softwareerlöse standardisieren.">
-                Standardise analysis modules for multi-site customers and recurring software revenue.
-              </p>
+              <p data-en="Standardise analysis modules for multi-site customers and recurring software revenue." data-de="Analysemodule für Multi-Standort-Kunden und wiederkehrende Softwareerlöse standardisieren.">Standardise analysis modules for multi-site customers and recurring software revenue.</p>
             </div>
           </div>
         </div>
@@ -2370,7 +2340,7 @@
       <div class="container">
         <div class="section-head reveal">
           <div class="eyebrow" data-en="Source basis" data-de="Quellenbasis">Source basis</div>
-          <h2 data-en="Official references behind the policy and gap section." data-de="Offizielle Referenzen hinter der Politik- und Lückenanalyse.">Official references behind the policy and gap section.</h2>
+          <h2 data-en="Official references behind the policy, map and gap sections." data-de="Offizielle Referenzen hinter den Politik-, Karten- und Lückenabschnitten.">Official references behind the policy, map and gap sections.</h2>
           <p data-en="Keep these source cards in the prototype. For the final report, convert them into formal references in your bibliography." data-de="Behalte diese Quellenkarten im Prototyp. Für den finalen Bericht kannst du sie in formale Literaturangaben übertragen.">
             Keep these source cards in the prototype. For the final report, convert them into formal references in your bibliography.
           </p>
@@ -2398,12 +2368,12 @@
           </article>
 
           <article class="card source-card reveal">
-            <h3>EUR-Lex</h3>
-            <p data-en="ReFuelEU Aviation and FuelEU Maritime legal framework and obligations." data-de="ReFuelEU Aviation und FuelEU Maritime Rechtsrahmen und Verpflichtungen.">
-              ReFuelEU Aviation and FuelEU Maritime legal framework and obligations.
+            <h3>Asian Hydrogen Roadmaps</h3>
+            <p data-en="Starter dataset based on public hydrogen strategies and roadmaps from Malaysia, Japan, Singapore, Korea, Indonesia and Thailand." data-de="Starter-Datensatz basierend auf öffentlichen Wasserstoffstrategien und Roadmaps aus Malaysia, Japan, Singapur, Korea, Indonesien und Thailand.">
+              Starter dataset based on public hydrogen strategies and roadmaps from Malaysia, Japan, Singapore, Korea, Indonesia and Thailand.
             </p>
-            <a href="https://eur-lex.europa.eu/" target="_blank" rel="noreferrer">
-              EUR-Lex source
+            <a href="#global-map">
+              View map
             </a>
           </article>
         </div>
@@ -2428,9 +2398,9 @@
           </p>
 
           <div class="hero-actions" style="justify-content:center">
-            <a href="mailto:mub1757@thi.de?subject=H2Jau-Energi%20Investor%20or%20Customer%20Inquiry" class="btn btn-primary" data-en="Request a feasibility case" data-de="Machbarkeitsfall anfragen">Request a feasibility case</a>
+            <a href="mailto:your.email@example.com?subject=H2Jau-Energi%20Investor%20or%20Customer%20Inquiry" class="btn btn-primary" data-en="Request a feasibility case" data-de="Machbarkeitsfall anfragen">Request a feasibility case</a>
             <a href="#calculator" class="btn btn-secondary" data-en="Try quick check" data-de="Quick Check testen">Try quick check</a>
-            <a href="#gap" class="btn btn-secondary" data-en="Explore hydrogen gap" data-de="Wasserstofflücke ansehen">Explore hydrogen gap</a>
+            <a href="#global-map" class="btn btn-secondary" data-en="Explore global map" data-de="Weltkarte ansehen">Explore global map</a>
           </div>
 
           <form class="contact-form" id="contactForm">
@@ -2446,12 +2416,18 @@
 
   <footer>
     <div class="container">
-      <p>© 2026 H2Jau-Energi · Clean Energy Decision Intelligence · Start-Up Project SS2026</p>
+      <p>© 2026 H2Jau-Energi · Global Clean Energy Decision Intelligence · Start-Up Project SS2026</p>
     </div>
   </footer>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
   <script>
     let currentLanguage = "en";
+    let globalHydrogenMap;
+    let globalHydrogenMarkers = [];
+    let globalHydrogenLayer;
+    let activeMapFilter = "all";
 
     const languageLabels = {
       en: {
@@ -2474,6 +2450,169 @@
       }
     };
 
+    const hydrogenMarkets = [
+      {
+        id: "germany",
+        country: "Germany",
+        countryDe: "Deutschland",
+        region: "europe",
+        status: "Scaling",
+        statusDe: "Skalierung",
+        score: 5,
+        lat: 51.1657,
+        lng: 10.4515,
+        target: "10 GW electrolysis by 2030",
+        targetDe: "10 GW Elektrolyse bis 2030",
+        opportunity: "Industrial demand + site-level optimisation",
+        opportunityDe: "Industrielle Nachfrage + Standortoptimierung",
+        roadmap:
+          "Germany targets at least 10 GW electrolysis capacity by 2030 and expects strong hydrogen demand in industry, power and infrastructure.",
+        roadmapDe:
+          "Deutschland zielt auf mindestens 10 GW Elektrolyseleistung bis 2030 und erwartet starke Wasserstoffnachfrage in Industrie, Energie und Infrastruktur.",
+        source: "National Hydrogen Strategy / BMWK / European Hydrogen Observatory"
+      },
+      {
+        id: "netherlands",
+        country: "Netherlands",
+        countryDe: "Niederlande",
+        region: "europe",
+        status: "Infrastructure hub",
+        statusDe: "Infrastruktur-Hub",
+        score: 5,
+        lat: 52.1326,
+        lng: 5.2913,
+        target: "Ports, imports and H2 corridors",
+        targetDe: "Häfen, Import und H2-Korridore",
+        opportunity: "Import logistics + industrial clusters",
+        opportunityDe: "Importlogistik + Industriecluster",
+        roadmap:
+          "The Netherlands is relevant for hydrogen imports, port infrastructure and industrial hydrogen corridors in Europe.",
+        roadmapDe:
+          "Die Niederlande sind relevant für Wasserstoffimporte, Hafeninfrastruktur und industrielle Wasserstoffkorridore in Europa.",
+        source: "European Hydrogen Observatory / EU infrastructure maps"
+      },
+      {
+        id: "malaysia",
+        country: "Malaysia",
+        countryDe: "Malaysia",
+        region: "asia",
+        status: "Emerging exporter",
+        statusDe: "Aufstrebender Exportmarkt",
+        score: 4,
+        lat: 4.2105,
+        lng: 101.9758,
+        target: "HETR vision to 2050",
+        targetDe: "HETR-Vision bis 2050",
+        opportunity: "Hydro + solar + export potential",
+        opportunityDe: "Wasserkraft + Solar + Exportpotenzial",
+        roadmap:
+          "Malaysia’s Hydrogen Economy and Technology Roadmap positions the country to become a leading hydrogen economy by 2050. Malaysia’s energy transition roadmap also identifies hydrogen as a key transition lever.",
+        roadmapDe:
+          "Malaysias Hydrogen Economy and Technology Roadmap positioniert das Land als führende Wasserstoffwirtschaft bis 2050. Die nationale Energiewende-Roadmap sieht Wasserstoff ebenfalls als wichtigen Transformationshebel.",
+        source: "MOSTI HETR / Malaysia NETR"
+      },
+      {
+        id: "japan",
+        country: "Japan",
+        countryDe: "Japan",
+        region: "asia",
+        status: "Demand leader",
+        statusDe: "Nachfrageführer",
+        score: 5,
+        lat: 36.2048,
+        lng: 138.2529,
+        target: "3 Mt by 2030, 12 Mt by 2040, 20 Mt by 2050",
+        targetDe: "3 Mio. t bis 2030, 12 Mio. t bis 2040, 20 Mio. t bis 2050",
+        opportunity: "Imports + ammonia + industry",
+        opportunityDe: "Importe + Ammoniak + Industrie",
+        roadmap:
+          "Japan’s revised Basic Hydrogen Strategy focuses on building hydrogen and ammonia supply chains, reducing supply costs and scaling demand through 2030, 2040 and 2050.",
+        roadmapDe:
+          "Japans überarbeitete Basic Hydrogen Strategy fokussiert auf Wasserstoff- und Ammoniak-Lieferketten, Kostensenkung und Nachfrageskalierung bis 2030, 2040 und 2050.",
+        source: "METI Basic Hydrogen Strategy"
+      },
+      {
+        id: "singapore",
+        country: "Singapore",
+        countryDe: "Singapur",
+        region: "asia",
+        status: "Import hub",
+        statusDe: "Import-Hub",
+        score: 4,
+        lat: 1.3521,
+        lng: 103.8198,
+        target: "Up to half of power needs by 2050",
+        targetDe: "Bis zu die Hälfte des Strombedarfs bis 2050",
+        opportunity: "Power decarbonisation + trading hub",
+        opportunityDe: "Stromdekarbonisierung + Handelsdrehscheibe",
+        roadmap:
+          "Singapore’s National Hydrogen Strategy sees hydrogen as a complement to solar, electricity imports and other low-carbon energy sources, with potential to supply up to half of power needs by 2050.",
+        roadmapDe:
+          "Singapurs National Hydrogen Strategy sieht Wasserstoff als Ergänzung zu Solarenergie, Stromimporten und anderen CO2-armen Energiequellen, mit Potenzial für bis zu die Hälfte des Strombedarfs bis 2050.",
+        source: "Singapore MTI / EMA National Hydrogen Strategy"
+      },
+      {
+        id: "south-korea",
+        country: "South Korea",
+        countryDe: "Südkorea",
+        region: "asia",
+        status: "Industrial scaling",
+        statusDe: "Industrielle Skalierung",
+        score: 5,
+        lat: 35.9078,
+        lng: 127.7669,
+        target: "6.2M FCEVs + 1,200 HRS by 2040",
+        targetDe: "6,2 Mio. FCEV + 1.200 H2-Stationen bis 2040",
+        opportunity: "Fuel cells + mobility + industry",
+        opportunityDe: "Brennstoffzellen + Mobilität + Industrie",
+        roadmap:
+          "Korea’s Hydrogen Economy Roadmap includes large-scale fuel-cell vehicle, refuelling station and fuel-cell power targets through 2040.",
+        roadmapDe:
+          "Koreas Hydrogen Economy Roadmap umfasst große Ziele für Brennstoffzellenfahrzeuge, Wasserstofftankstellen und Brennstoffzellenleistung bis 2040.",
+        source: "IEA / Korea Hydrogen Economy Roadmap"
+      },
+      {
+        id: "indonesia",
+        country: "Indonesia",
+        countryDe: "Indonesien",
+        region: "asia",
+        status: "Resource potential",
+        statusDe: "Ressourcenpotenzial",
+        score: 3,
+        lat: -2.5489,
+        lng: 118.0149,
+        target: "Hydrogen roadmap toward 2060 net zero",
+        targetDe: "Wasserstoff-Roadmap Richtung Net Zero 2060",
+        opportunity: "Domestic market + export derivatives",
+        opportunityDe: "Binnenmarkt + Exportderivate",
+        roadmap:
+          "Indonesia launched a National Hydrogen Strategy in 2023 and later moved toward a hydrogen and ammonia roadmap to support its 2060 net-zero direction.",
+        roadmapDe:
+          "Indonesien veröffentlichte 2023 eine National Hydrogen Strategy und entwickelte später eine Wasserstoff- und Ammoniak-Roadmap zur Unterstützung des Net-Zero-Pfads bis 2060.",
+        source: "MEMR / National Hydrogen Strategy / Hydrogen and Ammonia Roadmap"
+      },
+      {
+        id: "thailand",
+        country: "Thailand",
+        countryDe: "Thailand",
+        region: "asia",
+        status: "Strategy developing",
+        statusDe: "Strategie in Entwicklung",
+        score: 2,
+        lat: 15.87,
+        lng: 100.9925,
+        target: "Hydrogen strategy / action plan developing",
+        targetDe: "Wasserstoffstrategie / Aktionsplan in Entwicklung",
+        opportunity: "Industry + mobility pilots",
+        opportunityDe: "Industrie + Mobilitätspiloten",
+        roadmap:
+          "Thailand has climate targets and hydrogen-related studies and pilots, but public sources indicate the national hydrogen strategy has been under development rather than fully established.",
+        roadmapDe:
+          "Thailand hat Klimaziele und wasserstoffbezogene Studien und Piloten, aber öffentliche Quellen zeigen, dass die nationale Wasserstoffstrategie noch in Entwicklung ist.",
+        source: "CTCN / NXPO / Thailand hydrogen strategy work"
+      }
+    ];
+
     function applyLanguage(language) {
       currentLanguage = language;
       document.documentElement.lang = language;
@@ -2494,10 +2633,13 @@
         if (value !== undefined) element.placeholder = value;
       });
 
-      document.getElementById("formulaText").textContent =
-        language === "de"
-          ? "CO2-Einsparung = nutzbare erneuerbare kWh × Netz-CO2-Faktor. Wasserstoff kg = erneuerbare kWh ÷ Elektrolyse-kWh/kg H2."
-          : "CO2 saved = useful renewable kWh × grid CO2 factor. Hydrogen kg = renewable kWh ÷ electrolyser kWh/kg H2.";
+      const formula = document.getElementById("formulaText");
+      if (formula) {
+        formula.textContent =
+          language === "de"
+            ? "CO2-Einsparung = nutzbare erneuerbare kWh × Netz-CO2-Faktor. Wasserstoff kg = erneuerbare kWh ÷ Elektrolyse-kWh/kg H2."
+            : "CO2 saved = useful renewable kWh × grid CO2 factor. Hydrogen kg = renewable kWh ÷ electrolyser kWh/kg H2.";
+      }
 
       try {
         localStorage.setItem("h2jauLanguage", language);
@@ -2505,6 +2647,12 @@
 
       updateSimulator();
       calculatePotential();
+
+      if (globalHydrogenMap) {
+        addHydrogenMarkers();
+        const defaultMarket = hydrogenMarkets.find(market => market.id === "germany");
+        if (defaultMarket) updateMapSidePanel(defaultMarket);
+      }
     }
 
     document.getElementById("languageToggle").addEventListener("click", () => {
@@ -2528,13 +2676,6 @@
     document.querySelectorAll(".mobile-menu a").forEach(link => {
       link.addEventListener("click", () => {
         document.getElementById("mobileMenu").classList.remove("open");
-      });
-    });
-
-    document.querySelectorAll(".map-dot").forEach(dot => {
-      dot.addEventListener("click", () => {
-        document.getElementById("mapCaption").textContent =
-          currentLanguage === "de" ? dot.dataset.mapDe : dot.dataset.mapEn;
       });
     });
 
@@ -2574,6 +2715,9 @@
     }
 
     function updateSimulator() {
+      const solarSlider = document.getElementById("solarSlider");
+      if (!solarSlider) return;
+
       const solar = Number(document.getElementById("solarSlider").value);
       const demand = Number(document.getElementById("demandSlider").value);
       const battery = Number(document.getElementById("batterySlider").value);
@@ -2623,7 +2767,7 @@
             ? "Store H2 first for on-site backup."
             : "More H2 can be evaluated for potential offtakers.";
         business = currentLanguage === "de"
-          ? "Perpetua prüft, ob größere Batterie, größerer Tank oder Offtaker-Pfad sinnvoll ist."
+          ? "H2Jau-Energi prüft, ob größere Batterie, größerer Tank oder Offtaker-Pfad sinnvoll ist."
           : "H2Jau-Energi checks whether larger battery, larger tank or offtaker route makes sense.";
       }
 
@@ -2656,6 +2800,9 @@
       });
 
     function calculatePotential() {
+      const areaInput = document.getElementById("area");
+      if (!areaInput) return;
+
       const area = Number(document.getElementById("area").value || 0);
       const demand = Number(document.getElementById("demand").value || 0);
       const price = Number(document.getElementById("price").value || 0);
@@ -2701,6 +2848,212 @@
       document.getElementById(id).addEventListener("input", calculatePotential)
     );
 
+    function getMarketColor(market) {
+      if (market.score >= 5) return "#24f2b6";
+      if (market.score === 4) return "#64a8ff";
+      if (market.score === 3) return "#facc15";
+      return "#fb923c";
+    }
+
+    function getMarketByCountryName(name) {
+      const normalised = name.toLowerCase();
+      return hydrogenMarkets.find(market => {
+        const country = market.country.toLowerCase();
+        return (
+          normalised === country ||
+          (normalised === "republic of korea" && market.id === "south-korea") ||
+          (normalised === "korea, republic of" && market.id === "south-korea")
+        );
+      });
+    }
+
+    function updateMapSidePanel(market) {
+      document.getElementById("mapStatus").textContent =
+        currentLanguage === "de" ? market.statusDe : market.status;
+
+      document.getElementById("mapCountryTitle").textContent =
+        currentLanguage === "de" ? market.countryDe : market.country;
+
+      document.getElementById("mapCountryText").textContent =
+        currentLanguage === "de" ? market.roadmapDe : market.roadmap;
+
+      document.getElementById("mapTarget").textContent =
+        currentLanguage === "de" ? market.targetDe : market.target;
+
+      document.getElementById("mapOpportunity").textContent =
+        currentLanguage === "de" ? market.opportunityDe : market.opportunity;
+
+      document.getElementById("mapSourceNote").textContent =
+        "Source basis: " + market.source;
+    }
+
+    function createMarketPopup(market) {
+      const country = currentLanguage === "de" ? market.countryDe : market.country;
+      const status = currentLanguage === "de" ? market.statusDe : market.status;
+      const roadmap = currentLanguage === "de" ? market.roadmapDe : market.roadmap;
+      const target = currentLanguage === "de" ? market.targetDe : market.target;
+      const opportunity = currentLanguage === "de" ? market.opportunityDe : market.opportunity;
+
+      return `
+        <div class="popup-title">${country}</div>
+        <div class="popup-badge">${status}</div>
+        <div>${roadmap}</div>
+        <ul class="popup-list">
+          <li><strong>Target:</strong> ${target}</li>
+          <li><strong>Opportunity:</strong> ${opportunity}</li>
+        </ul>
+      `;
+    }
+
+    function getVisibleMarkets() {
+      return hydrogenMarkets.filter(market => {
+        if (activeMapFilter === "all") return true;
+        if (activeMapFilter === "scaling") return market.score >= 4;
+        if (activeMapFilter === "emerging") return market.score <= 3;
+        return market.region === activeMapFilter;
+      });
+    }
+
+    function addHydrogenMarkers() {
+      if (!globalHydrogenMap) return;
+
+      globalHydrogenMarkers.forEach(marker => marker.remove());
+      globalHydrogenMarkers = [];
+
+      const visibleMarkets = getVisibleMarkets();
+
+      visibleMarkets.forEach(market => {
+        const marker = L.circleMarker([market.lat, market.lng], {
+          radius: 12 + market.score * 2,
+          color: "#ffffff",
+          weight: 2,
+          fillColor: getMarketColor(market),
+          fillOpacity: 0.88
+        }).addTo(globalHydrogenMap);
+
+        marker.bindPopup(createMarketPopup(market));
+
+        marker.on("click", () => {
+          updateMapSidePanel(market);
+        });
+
+        marker.bindTooltip(currentLanguage === "de" ? market.countryDe : market.country, {
+          permanent: false,
+          direction: "top"
+        });
+
+        globalHydrogenMarkers.push(marker);
+      });
+    }
+
+    function initGlobalHydrogenMap() {
+      const mapElement = document.getElementById("globalHydrogenMap");
+      if (!mapElement || typeof L === "undefined" || globalHydrogenMap) return;
+
+      globalHydrogenMap = L.map("globalHydrogenMap", {
+        scrollWheelZoom: true,
+        tap: true,
+        worldCopyJump: true
+      }).setView([25, 75], 3);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 18,
+        attribution: "&copy; OpenStreetMap contributors"
+      }).addTo(globalHydrogenMap);
+
+      addHydrogenMarkers();
+
+      const bounds = L.latLngBounds(hydrogenMarkets.map(market => [market.lat, market.lng]));
+      globalHydrogenMap.fitBounds(bounds, { padding: [30, 30] });
+
+      fetch("https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json")
+        .then(response => response.json())
+        .then(data => {
+          globalHydrogenLayer = L.geoJSON(data, {
+            style: feature => {
+              const market = getMarketByCountryName(feature.properties.name);
+              if (!market) {
+                return {
+                  color: "rgba(255,255,255,.18)",
+                  weight: 1,
+                  fillOpacity: 0.02
+                };
+              }
+
+              return {
+                color: getMarketColor(market),
+                weight: 1.5,
+                fillColor: getMarketColor(market),
+                fillOpacity: 0.18
+              };
+            },
+            onEachFeature: (feature, layer) => {
+              const market = getMarketByCountryName(feature.properties.name);
+              if (!market) return;
+
+              layer.bindPopup(createMarketPopup(market));
+
+              layer.on({
+                click: () => updateMapSidePanel(market),
+                mouseover: event => {
+                  event.target.setStyle({
+                    weight: 3,
+                    fillOpacity: 0.32
+                  });
+                },
+                mouseout: event => {
+                  globalHydrogenLayer.resetStyle(event.target);
+                }
+              });
+            }
+          }).addTo(globalHydrogenMap);
+        })
+        .catch(() => {
+          console.log("Country colour layer could not be loaded. Markers still work.");
+        });
+
+      const defaultMarket = hydrogenMarkets.find(market => market.id === "germany");
+      if (defaultMarket) updateMapSidePanel(defaultMarket);
+    }
+
+    document.querySelectorAll(".map-chip[data-filter]").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".map-chip[data-filter]").forEach(item => item.classList.remove("active"));
+        button.classList.add("active");
+        activeMapFilter = button.dataset.filter;
+        addHydrogenMarkers();
+
+        const filtered = getVisibleMarkets();
+
+        if (filtered.length > 0 && globalHydrogenMap) {
+          const bounds = L.latLngBounds(filtered.map(market => [market.lat, market.lng]));
+          globalHydrogenMap.fitBounds(bounds, { padding: [30, 30] });
+          updateMapSidePanel(filtered[0]);
+        }
+      });
+    });
+
+    document.getElementById("locateMe")?.addEventListener("click", () => {
+      if (!navigator.geolocation || !globalHydrogenMap) return;
+
+      navigator.geolocation.getCurrentPosition(position => {
+        const userLatLng = [position.coords.latitude, position.coords.longitude];
+
+        globalHydrogenMap.setView(userLatLng, 6);
+
+        L.circleMarker(userLatLng, {
+          radius: 10,
+          color: "#ffffff",
+          weight: 2,
+          fillColor: "#fb7185",
+          fillOpacity: 0.95
+        })
+          .addTo(globalHydrogenMap)
+          .bindPopup(currentLanguage === "de" ? "Ihr ungefährer Standort" : "Your approximate location")
+          .openPopup();
+      });
+    });
+
     document.getElementById("contactForm").addEventListener("submit", event => {
       event.preventDefault();
       const name = document.getElementById("name").value;
@@ -2745,6 +3098,7 @@
     applyLanguage(savedLanguage);
     updateSimulator();
     calculatePotential();
+    initGlobalHydrogenMap();
     updateProgressBar();
   </script>
 </body>
